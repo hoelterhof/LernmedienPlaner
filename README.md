@@ -19,7 +19,7 @@ Die aktuelle Version kann über diesen Link abgerufen und ausgeführt werden:
 
 Diese Version kann ohne weitere Voraussetzungen im Webbrowser genutzt werden. Im Tool ist eine Anleitung eingestellt, die die weitere Verwendung erklärt.
 
-Der Source-Code ist als HTML-Datei ist im Ordner `output/` in diesem Repository verfügbar.
+Der Source-Code ist als HTML-Datei im Ordner `output/` zu finden.
 
 Das Tools basiert auf [TiddlyWiki](https://github.com/Jermolene/TiddlyWiki5) von [Jeremy Ruston](https://github.com/Jermolene).
 
