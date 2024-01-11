@@ -13,7 +13,13 @@ Installation und Nutzung
 
 Der Lernmedien-Planer ist in JavaScript programmiert, läuft in allen gängigen und aktuellen Webbrowsern und wird als **eine HTML-Datei** ausgeliefert, in der alle Ressourcen eingebettet sind. Für die Nutzung ist daher keine Installation erforderlich. Außerdem kann das Tool offline ausgeführt werden, es ist kein Server erforderlich.
 
-Eine aktuelle Version des Lernmedien-Planers als HTML-Datei ist im Ordner `output/` in diesem Repository. Diese Version kann ohne weitere Voraussetzungen im Webbrowser genutzt werden, indem die HTML-Datei geöffnet wird. Im Tool ist eine Anleitung verfügbar, die die weitere Verwendung erklärt.
+Die aktuelle Version kann über diesen Link abgerufen und ausgeführt werden:
+
+-   <https://hoelterhof.github.io/LernmedienPlaner/output/Lernmedienplaner-0.4.3.html>
+
+Diese Version kann ohne weitere Voraussetzungen im Webbrowser genutzt werden. Im Tool ist eine Anleitung eingestellt, die die weitere Verwendung erklärt.
+
+Der Source-Code ist als HTML-Datei ist im Ordner `output/` in diesem Repository verfügbar.
 
 Das Tools basiert auf [TiddlyWiki](https://github.com/Jermolene/TiddlyWiki5) von [Jeremy Ruston](https://github.com/Jermolene).
 
