@@ -1,0 +1,3 @@
+title: ExportLernmedienplanJSON
+
+<$macrocall $name="jsontiddlers" filter="[title[$:/Projekt/Titel]]=[title[$:/Projekt/Einsatz]]=[title[$:/Projekt/Autor]]=[title[$:/Projekt/Datum]]=[title[$:/Projekt/Kommentar]]=[title[$:/Projekt/Gesamtstrategie]]=[title[$:/Projekt/Funktion]]=[title[$:/Projekt/DidaktischerKommentar]]=[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]=[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]links[]has[modified]]=[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]=[tag[Komponente]!prefix[Vorlage]!prefix[Draft]links[]has[modified]]" $output="text/raw"/>

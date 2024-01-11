@@ -1,0 +1,20 @@
+title: AnalyseZiele
+caption: Ziele
+
+! Zieldimensionen
+
+
+<p><$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="Für das geplante Lernmedium wurden keine Zieldimensionen angelegt.">Folgende Zieldimensionen sind für die Lernmedien spezifiziert:</$list></p>
+
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]" variable="ziel">
+<p><h2><$link to=<<ziel>>><<ziel>></$link></h2></p>
+<p><$transclude tiddler=<<ziel>> mode="block"></$transclude></p>
+
+<p><$list filter="[search:Zieldimensionen<ziel>nth[1]]" emptyMessage="Keine Komponente des Lernmediums adressiert diese Zieldimension">Diese Zieldimension wird von folgenden Komponenten adressiert:</$list>
+<ul><$list filter="[search:Zieldimensionen<ziel>]" variable="comp">
+<li><$link to=<<comp>>><<comp>></$link> <$list filter="[<comp>get[Komponententyp]]" variable="item">(<<item>>)</$list></li></$list></ul></p>
+
+<$list filter="[title<ziel>links[]has[modified]]" variable="link"><p><h3><$link to=<<link>>><<link>></$link></h3></p>
+<p><$transclude tiddler=<<link>> mode="block"></$transclude></p></$list>
+
+</$list>

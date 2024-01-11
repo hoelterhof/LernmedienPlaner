@@ -1,0 +1,14 @@
+title: Etherpad
+tags: Texteditor OnlineTool OpenSource
+edit: OnlineTextdokument
+
+Etherpad ist ein sehr einfaches kollaboratives Online-Textverarbeitungssystem, mit dem mehrere Benutzer/innen synchron an einem Textdokument arbeiten können. Das Tool speichert den Bearbeitungsverlauf und ermöglicht es, ältere Versionen eines Dokuments wiederherzustellen. Es handelt sich um ein Open-Source-Tool, welches als Server verfügbar gemacht wird. Im Netz gibt es daher mehrere Etherpad-Server, die frei genutzt werden können.
+
+Der Einstieg in Etherpad ist sehr einfach. Eine Integration in die Lehr- und Lerninfrastruktur einer Schule kann über die Lernplattform erfolgen: Manche Learning-Management-Systeme bringen einen eigenen Etherpad-Server mit. Auch Dokumente auf externen Etherpad-Servern können über einen Link eingebunden werden.
+
+Lernende können das Tool auf vielen Endgeräten nutzen, da es über den Webbrowser läuft. Besonders interessant für die Erstellung von Texten sind jedoch Geräte mit größeren Bildschirmen, die auch über eine Tastatur verfügen. Ein weiterer interessanter Aspekt des Tools ist, dass die Lernenden selbst Etherpads erstellen und diese im Lern- und Arbeitskontext vielfältig einsetzen können.
+
+Links ins Internet:
+
+* [[https://etherpad.org|https://etherpad.org]]
+* Freier Etherpad-Server der Zentrale für Unterrichtsmedien im Internet eV.: [[https://pad.zum.de|https://pad.zum.de]]

@@ -1,0 +1,1457 @@
+title: Current Sprint
+
+! $_,,Version,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+0.4.3
+
+! $_,,DefaultTiddlers,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+"Start"
+
+! $_,,SiteTitle,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Lernmedien-Planer
+
+! $_,,SiteSubtitle,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Tool zum Planen digitaler Lernumgebungen
+
+! $_,,DefaultSidebarTab,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+$:/core/ui/SideBar/TOC
+
+! $_,,language,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+$:/languages/de-DE
+
+! $_,,AssistentStep,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+StepStructure
+
+! $_,,Macros,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+\define Druckansicht()
+<$action-sendmessage $message="tm-open-window" $param="Druckansicht" windowTitle="Druckansicht" width="400" height="500" windowID="window1"/>
+\end
+
+\define NeueKomponente()
+<$wikify name=Komponente text="""{{$:/state/CurrentComponent}}""">
+<$set name="Frage" tiddler=<<Komponente>> field="Frage">
+<$set name=Ziel value={{$:/state/CurrentSkill}}>
+<$action-createtiddler $basetitle="Komponente" $template="VorlageKomponente">
+<$action-setfield $tiddler=<<createTiddler-title>> tags="Komponente"/>
+<$action-setfield $tiddler=<<createTiddler-title>> Komponententyp=<<Komponente>> />
+<$action-setfield $tiddler=<<createTiddler-title>> Zieldimensionen="$(skill)$" />
+<$action-setfield $tiddler=<<createTiddler-title>> text=<<Frage>> />
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+</$set>
+</$set>
+</$wikify>
+\end
+
+\define ListTools4Components(ttag:"")
+<ul>
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" emptyMessage="" variable=Komponente>
+<$list filter="[<Komponente>get[Komponententyp]]" variable=Typ emptyMessage="">
+<$list filter="[tag[$ttag$]]" variable="Kategorie" emptyMessage="">
+<$list filter="[tag<Kategorie>search:edit<Typ>]" variable=Tool>
+<li><$link to=<<Tool>>><<Tool>></$link> (<<Typ>>)</li>
+</$list>
+</$list>
+</$list>
+</$list>
+</ul>
+\end
+
+\define ListTools()
+!! Tools
+<p>Die folgenden Tools ermöglichen das Erstellen und Einsetzen dieser Komponente:
+<<list-links filter:"[contains:references<currentTiddler>tag[Autorenwerkzeug]] :all[contains:references<currentTiddler>tag[Plattform]]" emptyMessage:"Für diesen Komponententyp sind keine Tools eingetragen">></p>
+\end
+
+\define ListComponents()
+Dieses Autorenwerkzeuge eignet sich für die folgenden Komponententypen:
+<p><$list filter="[title<currentTiddler>get[references]]" emptyMessage="Für dieses Autorenwerkzeug sind noch keine Komponententypen eingetragen" variable="item"><<item>></$list></p>
+\end
+
+\define skill(txt:"" comment:"")
+$txt$
+<$button>
+<$action-createtiddler $basetitle="Ziel" $template="VorlageZiel">
+<$action-setfield $tiddler=<<createTiddler-title>> $value="$txt$ ($comment$)"/>
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+Hinzufügen
+</$button>
+\end
+
+\define teaser(title:"")
+<$set name=tiddler value="$title$">
+<div class="teaser"><p><$link to=<<tiddler>>>$title$</$link></p>
+<p><$list filter="[<tiddler>get[text]splitregexp[<teaser]first[1]]" variable="teaser"><<teaser>></$list> <$link to=<<tiddler>>>Weiterlesen...</$link></p></div>
+</$set>
+\end
+
+\define comment(txt:"")
+<$reveal type="match" state="$:/Einstellungen/WissenschaftlicherKommentar" text="show"><div class="DISPLAY">$txt$</div></$reveal>
+\end
+
+\degine exportLernmedienplan()
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+\end
+
+
+! $_,,toc,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<div class="tc-table-of-contents">
+<<toc-selective-expandable "Inhaltsverzeichnis" "sort[weight]">>
+</div>
+
+
+! $_,,AnsichtTiddler,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<div class="tc-tiddler-body tc-reveal">
+<$list filter="[all[current]has[Komponententyp]]">
+<$wikify name=Komponententyp text="""{{!!Komponententyp}}""">
+<dl><dt>Komponententyp:</dt><dd><$link to=<<Komponententyp>>>{{!!Komponententyp}}</$link></dd></dl></$wikify>
+</$list><$list filter="[all[current]has[Zieldimensionen]]">
+<dl><dt>Zieldimensionen:</dt><dd>{{!!Zieldimensionen}}</dd></dl>
+</$list>
+<$list filter="[all[current]has[edit]]">
+<p>Dieses Tool kann folgende Komponententypen bearbeiten oder anbieten: <ul><$list filter="[list[!!edit]]" emptyMessage="Für dieses Autorenwerkzeug sind noch keine Komponententypen eingetragen" variable="item"><li><$link to=<<item>>><<item>></$link></li></$list></ul></p>
+</$list>
+<$list filter="[all[current]tag[Komponententyp]]">
+<p>Folgende Autorenwerkzeuge oder Plattformen sind für diesen Komponententyp interessant: <ul><$list filter="[search:edit<currentTiddler>]" emptyMessage="Für diesen Komponententyp sind noch keine Toolseingetragen" variable="item"><li><$link to=<<item>>><<item>></$link></li></$list></ul></p>
+</$list>
+<$list filter="[all[current]!tag[Zieldimension]listed[Zieldimensionen]]" variable="item"><div class="tc-message-box"><p>Dieser Inhalt wird von einer Komponente als Zieldimension angegeben: daher sollte er mit dem Tag <<tag Zieldimension>> versehen sein. Bitte klicken Sie auf <$transclude tiddler="$:/core/ui/Buttons/edit"></$transclude> um dieses Tag hinzuzufügen.</p></div></$list>
+<$list filter="[all[current]has[Komponententyp]!tag[Komponente]]" variable="item"><div class="tc-message-box"><p>Für diesen Inhalt ist ein Komponententyp eingetragen: daher sollte er mit dem Tag <<tag Komponente>> versehen sein. Bitte klicken Sie auf <$transclude tiddler="$:/core/ui/Buttons/edit"></$transclude> um dieses Tag hinzuzufügen.</p></div></$list>
+</div>
+
+
+! $_,,FieldCascade,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+[suffix[Komponententyp]then[$:/config/EditTemplateFields/Templates/Komponententyp]][suffix[Zieldimensionen]then[$:/config/EditTemplateFields/Templates/Zieldimensionen]]
+
+
+! $_,,FieldEditorKomponententyp,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$select tiddler=<<currentTiddler>> field='Komponententyp' class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><$list filter='[tag[Komponententyp]]'><option><$view field='title'/></option></$list></$select>
+
+
+! $_,,FieldEditorZieldimensionen,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$list filter='[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]' variable=aim>
+<$checkbox tiddler=<<currentTiddler>> listField='Zieldimensionen' checked=<<aim>> unchecked="" class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><<aim>></$checkbox><br/></$list>
+<$list filter='[list[!!Zieldimensionen]!tag[Zieldimension]]' variable=aim>
+<$checkbox tiddler=<<currentTiddler>> listField='Zieldimensionen' checked=<<aim>> unchecked="" class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><<aim>></$checkbox>
+</$list>
+
+
+! $_,,ButtonVisibilityHome,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+show
+
+! $_,,ButtonVisibilityNewTiddler,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+hide
+
+! $_,,ButtonVisibilityControlPanel,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+hide
+
+! $_,,ButtonExportPlan,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$button class=<<tv-config-toolbar-class>>>{{$:/core/images/export-button}}
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+</$button>
+
+
+! $_,,ButtonVisibilityExportPlan,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+show
+
+! $_,,ButtonVisibilityImport,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+show
+
+! $_,,SideBarMore,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+\define lingo-base() $:/language/ControlPanel/
+\define config-title()
+$:/config/PageControlButtons/Visibility/$(listItem)$
+\end
+
+<<lingo Basics/Version/Prompt>> <<version>>
+
+<$set name="tv-config-toolbar-icons" value="yes">
+
+<$set name="tv-config-toolbar-text" value="yes">
+
+<$set name="tv-config-toolbar-class" value="">
+
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/PageControls]!has[draft.of]]" variable="listItem">
+
+<div style="position:relative;" class={{{ [<listItem>encodeuricomponent[]addprefix[tc-btn-]] }}}>
+
+<$checkbox tiddler=<<config-title>> field="text" checked="show" unchecked="hide" default="show"/> <$transclude tiddler=<<listItem>>/> <i class="tc-muted"><$transclude tiddler=<<listItem>> field="description"/></i>
+
+</div>
+
+</$list>
+
+</$set>
+
+</$set>
+
+</$set>
+
+
+! $_,,SideBarTools,, <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+\whitespace trim
+<div class={{{ [{$:/config/ui/SideBar/More/horizontal}match[yes]then[tc-sidebar-tabs]else[tc-more-sidebar]] }}}>
+<$macrocall $name="tabs" tabsList="[all[shadows+tiddlers]tag[$:/tags/MoreSideBar]!has[draft.of]]" default={{$:/config/DefaultMoreSidebarTab}} state="$:/state/tab/moresidebar" class={{{ [{$:/config/ui/SideBar/More/horizontal}match[yes]then[tc-sidebar-tabs-more]else[tc-vertical tc-sidebar-tabs-more]] }}} explicitState="$:/state/tab/moresidebar-1850697562"/>
+</div>
+
+
+! Endgerät <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Endgerät ist ein Computer oder ein digitales Gerät, mit dem die Lernenden oder Lehrenden arbeiten und welches mit einem Netzwerk verbunden ist. Es gibt verschiedene Formen von Endgeräten. Mitunter verwenden die Nutzenden auch mehrere dieser Endgeräte zugleich:
+
+* Desktop PC: ein fest installierter Computer auf einem Schreibtisch oder an einem Arbeitsplatz, der oft über einen Netzwerkkabel mit einem Netzwerk verbunden ist. Das Gerät wird typischerweise über eine Tastatus und eine Maus bedient.
+* Laptop oder Notebook: ein beweglicher und tragbarer Computer mit Tastatur, Touchpad und Bildschirm, welcher über WLAN mit einem Netzwerk verbunden ist. Auch dieses Gerät wird über eine Tastatur und das Touchpad bedient.
+* Tablets: ein beweglicher und tragbarer Computer mit berührungsempfindlichem Bildschirm, der über ein WLAN mit einem Netzwerk verbunden ist. Das Gerät wird durch Berührungen als Finger- oder Handgesten bedient. Mitunter kann auch eine Tastatur an angeschlossen werden.
+* Smartphone: ein Telefon mit berührungsempfindlichem Bildschirm, das über ein WLAN oder über ein Mobilfunknetz mit einem Netzwerk verbunden ist. Das Gerät wird duch Berührung als Finger- oder Handgesten bedient.
+* Virtual-Reality (VR) Brille bzw. Headset: Eine Brille mit zwei Bildschirmen für die beiden Augen, über die Virtual- oder Augmented-Reality Anwendungen genutzt werden können. Der Computer ist mitsamt Akku in der Brille verbaut oder über ein Kabel mit der Brille verbunden. Diese ist über ein WLAN mit einem Netzwerk verbunden. Viele Brillen besitzen ferner Lautsprecher. Außerdem sind oft auch Controler mit der Brille verbunden, die in die Hand genommen werden und über die die Steuerung erfolgt.
+
+Als mobile Endgeräte werden Laptops, Tablets oder Smartphones bezeichnet.
+
+! Webbrowser <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Webbrowser ist ein Computerprogramm für das Anzeigen und Benutzen von Webseiten im Internet. Über einen Webbrowser können Lernende auf das Wissen im Internet zugreifen, etwa als Erklärvideos, Fachartikel oder in Datenbanken. Ebenso nutzen Lernende Webbrowser um sich auf der Lernplattform einer Schule oder einer anderen Online-Plattformen [[einzuloggen|Login]] und dort zu arbeiten. Schließlich sind Webbrowser auch die Basis für viele Krankenhausinformationssysteme und damit auch wichtige Computerprogramme für die professionellen Pflege.
+
+Webbrowser sind Standalone-Programme, die in der Regel auf allen Endgeräten verfügbar und bereits installiert sind. Daher sind Online-Inhalte für die Lernende und Lehrende gut erreichbar und abrufbar. Je nach Endgerät ist die Größe des Bildschirmes für die Rezeption und Nutzung von Lehr- und Lerninhalten wichtig. Als Responsivität bezeichnet man die Eigenschaft von Webseiten, sich automatisch an die Bildschirmgröße anzupassen (z.B. durch Zeilenumbruch, größere Schriftart etc.) und so eine Nutzung über verschiedene Endgeräte hinweg zu ermöglichen.
+
+Typische Webborser sind z.B.
+
+* [[Mozilla Firefox|https://www.mozilla.org/de/firefox/new/]]
+* [[Google Chrome|https://www.google.com/intl/de/chrome/]]
+* [[Microsoft Edge|https://www.microsoft.com/de-de/edge]]
+
+! Login <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Login ist ein personenbezogener Zugang zu einem Endgerät oder einer Online-Plattform, mit der eine Person identifiziert werden kann und die der Person Zugriff auf ein Gerät, eine Plattform oder eine Ressource gewährt. Ein Login besteht typischerweise aus einem Namen und einem Passwort, beides sind Zeichenketten aus alphanumerischen Zeichen ggf. ergänzt um Sonderzeichen. Dabei kann der Name dem realen Namen einer Person entsprechen oder ein Pseudonym darstellen. Ein Anonymer Zugang zu einer Plattform erfolgt in der Regel ohne Login.
+
+Es ist wichtig, dass ein Passwort [[sicher gewählt|https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/Accountschutz/Sichere-Passwoerter-erstellen/sichere-passwoerter-erstellen_node.html]] wird und anderen Personen nicht mitgeteilt wird.
+
+Im Falle einer Zwei-Faktor-Authentifizierung wird das Passwort ergänzt durch einen weiteren Faktor (z.B. einer PIN, einem weiteren Passwort oder einer Nummer etc.) um die Sicherheit der Identifizierung zu erhöhen.
+
+! StandaloneProgramm <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein standalone Programm ist ein Computerprogramm, welches auf einem Endgerät installiert wird und ohne weitere Zusatzprogramme genutzt wird. Es läuft ohne Webbrowser und kann so auf die Ressourcen des Endgeräts direkt zugreifen (z.B. Webcam, Mikrofon, Grafikkarte etc.). Auf mobilen Geräten bezeichnet man standalone Programme auch als Apps.
+
+Durch die Installation können Standalone-Programme im Kontext von digitalen Lehr- und Lernszenarien erst dann genutzt werden, wenn sie auf den Endgeräten der Lernenden und Lehrenden verfügbar sind. Nicht alle Programme laufen auf allen Betriebssystemen und Geräten. Zudem müssen die Lernenden bzw. die Lehrenden die Programme installieren können oder ggf. installieren lassen. Mitunter sind Geräte aus Sicherheitsbedenken gesperrt, so dass die Nutzenden keine neuen Programme selbst installiert dürfen.
+
+! Start <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/ledger-play.svg]]
+
+
+Willkommen zum {{$:/SiteTitle}}: einem {{$:/SiteSubtitle}}.
+
+<br clear="both"/>
+
+<div id="#" class="WARNING">
+Dies ist eine noch nicht veröffentlichte Vorab-Version zur Evaluation im Rahmen von Lehrveranstaltungen an der katho im Wintersemester 2023/2024. Bitte diese Version noch nicht weitergeben oder anderweitig verwenden. Informationen zur veröffnentlichten Version folgen.</div>
+
+<div id="#" class="DISPLAY">
+<$list filter="[{$:/Projekt/Titel}minlength[1]]" emptyMessage="<h2>Kein Projekt angelegt</h2>">
+
+!! {{$:/Projekt/Titel}}
+
+<$list filter="[{$:/Projekt/Einsatz}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Einsatz}}</p></$list>
+<$list filter="[{$:/Projekt/Autor}minlength[1]]" emptyMessage="Keine Angaben zu Autor*in"><p>Ein Lernmedium von {{$:/Projekt/Autor}}<$list filter="[{$:/Projekt/Datum}minlength[1]]" emptyMessage="">, {{$:/Projekt/Datum}}</$list>.</p></$list>
+</$list></div>
+
+<<tabs "Lernmedien-Planer Themen" "Lernmedien-Planer" "$:/state/TabStart" "tc-horizontal">>
+
+Lernmedien-Planer {{$:/Version}} · [[CC-BY-SA 4.0|Impressum und Credits]] Tobias Hölterhof
+
+! Lernmedien-Planer <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<dt>[[Planen|Planen]]</dt>
+<dd>Anlegen und Bearbeiten einer Planung.</dd>
+<dt>[[Analysieren|Analysieren]]</dt>
+<dd>Die aktuelle Planung anschauen und analysieren sowie als Report ausgeben.</dd>
+<dt>[[Exportieren und Importieren|Exportieren und Importieren]]</dt>
+<dd>Die aktuelle Planung speichern, exportieren oder importieren.</dd>
+<dt>[[Einstellungen|Einstellungen]]</dt>
+<dd>Einstellungen des Programmes bearbeiten</dd>
+<dt>[[Bedienung|Bedienung]]</dt>
+<dd>Eine kurze Einführung in die Bedienung dieses Tools</dd>
+<dt>[[Über das Tool|Über das Tool]]</dt>
+<dd>Informationen über dieses Tool sowie Versionsnummer.</dd>
+
+
+! Themen <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+<<teaser "Lehren und Lernen mit Medien">>
+
+<<teaser "Komponententyp">>
+
+<<teaser "Autorenwerkzeug">>
+
+<<teaser "Plattform">>
+
+! Bedienung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+<<tabs "BedienungEingabemaske BedienungWikiText BedienungSpeichern" "BedienungEingabemaske" "$:/state/TabBedienung" "tc-horizontal">>
+
+! BedienungEingabemaske <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Im Lernmedien-Planer werden Komponenten und Zieldimensionen von Lernmedien in einer ''besonderen Eingabemaske'' angelegt und bearbeitet (siehe Abbildung). Das erste Textfeld beinhaltet den Titel des neuen Inhalts (in der Abbildung: „Komponente 1“). Ziele und Komponenten werden standardmäßig durchnummeriert, können aber auch gänzlich anders benannt werden. Darunter ist ein Feld mit Tags (Schagworten). Die voreingetragenen Tags haben oft eine wichtige Funktion im Lernmedien-Planer und sollten nicht entfernt werden (in der Abbildung: „Komponente“). Weitere Tags können hinzugefügt werden, haben aber bisher keine Funktion.
+
+Darunter folgt ein Eingabefeld für die ''Beschreibung'' der Komponente bzw. der Zieldimension. Oft ist hier bereits eine Leitfrage eingetragen. Sie können den Fragetext ersetzen durch einen Beschreibungstext oder die Beschreibung darunter einfügen. Dieses Feld ist wichtig und sollte bearbeitet werden. Im folgenden Reiter „Text eingeben“ finden Sie weitere Hinweise für die Eingabe der Beschreibung.
+
+Je nach Inhalt sind ''weitere Felder'' aufgeführt, die bei Bedarf bearbeitet werden können. Die voreingetragenen Werte sind aber ausreichend. Das Erstellen oder Bearbeiten einer Komponente oder die Zieldimension wird mit einem Klick auf das Symbol {{$:/core/ui/Buttons/save}} oben rechts beendet. Das Symbol {{$:/core/ui/Buttons/cancel}} verwirft die Änderungen und {{$:/core/ui/Buttons/delete}} löscht den Inhalt wieder.
+
+[img  width="80%" [Abbildung: Eine neue Komponente anlegen im Lernmedien-Planer|Media/Screenshots/ScreenshotLernmedienPlanerNeueKomponente.png]]
+<br />//Abbildung: Eine neue Komponente anlegen im Lernmedien-Planer//
+
+
+! BedienungWikiText <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Die Eingabe des Beschreibungstextes erfolgt als Markup, d.h. für die ''Textformatierung'' wie etwa Aufzählungslisten, Hervorhebungen etc. werden Steuerzeichen oder Codes verwendet. Neben Hervorhebungen können durch Codes auch Links in das Internet oder Links auf eigene Inhalte gesetzt werden. Diese Codes gelten nur für den Beschreibungstext, in anderen Textfeldern haben sie (noch) keine Funktion. Über dem Texteingabefeld finden Sie auch Buttons für Textformatierungen, die die Eingabe erleichtern.
+
+Folgende Textformatierungen können z.B. genutzt werden:
+
+* Für Absätze eine Zeile leer lassen
+* Hervorgehobene Wörtern oder Passagen (fett, kursiv) werden durch zwei Hochkomma (`''`) oder Slash (`//`) eingeschlossen: `''fett geschriebene Wörter''` oder `//kursive Wörter//`
+* Aufzählungen beginnen mit einem Sternchen (`*`) am Zeilenanfang, gefolgt von einem Leerzeichen: `* Aufzählung Punkt 1`
+
+Ein Link wird durch zwei Winkelklammern gekennzeichnet, in denen das Link-Ziel angegeben wird: der Code `[[Plattform]]` erzeugt [[Plattform|Plattform]]. Als Link-Ziel werden dabei Titel von Inhalten verwendet, wie etwa Komponenten oder Zieldimensionen. Wird der Titel verändert so muss auch der Link verändert werden. Ist ein Titel nicht vorhaben, so wird er durch einen Klick auf den Link erzeugt. Links auf externe Webseiten können durch das Angaben der Internetadresse ohne Winkelklammern eingefügt werden.
+
+Weitere Informationen zur Eingabe von Texten und den dabei gültigen Codes finden Sie unter: [[https://tiddlywiki.com/#WikiText|https://tiddlywiki.com/#WikiText]]
+
+Wenn Sie die Bearbeitung des Textes durch einen Klick auf das Symbol {{$:/core/ui/Buttons/save}} beenden, dann wird der Beschreibungstext ohne Steuerzeichen mit der entsprechenden Formatierung angezeigt.
+
+! BedienungSpeichern <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Änderungen sind jederzeit in diesem Fenster bzw. Tab Ihres Webbrowser gespeichert. Wenn Sie den Browser schließen gehen die Änderungen verloren, es sei denn sie ''Speichern diese Änderungen'' in einer Datei. Klicken Sie dafür rechts auf das Symbol {{$:/core/ui/Buttons/save-wiki}}. Das Symbol wird rot wenn Änderungen vorgenommen wurden die noch nicht gespeichert sind.
+
+Wenn Sie auf das Speichern-Symbol klicken erzeugt der Lernmedien-Planer eine HTML-Datei und übergibt diese Datei als Download an den Webbrowser. Typischerweise werden Downloads in Ihrem Download-Ordner gespeichert. Wenn Sie den Lernmedien-Planer mehrmals speichern erhalten die Dateinamen ggf. Nummern, weil eine Datei mit dem Namen im Download-Ordner schon vorhanden ist. Sie können Ihren Webbrowser so konfigurieren, dass er bei jedem Download nachfragt wo und unter welchem Namen die Datei gespeichert werden soll.
+
+Die Funktion Speichern erzeugt eine HTML-Datei, die sowohl Ihre Berarbeitungen als auch eine Kopie der genutzten Version des Lernmedienplaners sebst beinhaltet. Diese HTML-Datei kann in jedem Webbrowser geöffnet werden. Neben dem Speichern können Sie alle ''Bearbeitungen auch exportieren'': Ein Export beinhaltet nur Ihre Bearbeitungen und kann in einer anderen Version des Lernmedienplaners wieder importiert werden. Auch können Sie durch einen Export mehrere Lernmedien in einem Lernmedienplaner bearbeiten, indem Sie die Planungen exportieren und importieren. Sie finden sowohl die Export- als auch die Import-Funktion unter „Lernmedienplan verwalten“ im Startfenster bzw. im Inhalt unter „Lernmedien-Planer“
+
+Wenn Sie häufiger mit dem Lernmedien-Planer oder mit einem anderen TiddlyWiki arbeiten können Sie auch ein Plugin zum automatischen Speichern in ihrem Webbrowser installieren. Weitere Informationen zu den Plugins für TiddlyWiki finden Sie unter: [[https://tiddlywiki.com/#Saving|https://tiddlywiki.com/#Saving]]
+
+! Einstellungen <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Wenn Sie neue Inhalte namentlich kennzeichnen möchten, dann tragen Sie hier Ihren Namen ein, ehe Sie diese Inhalte erstellen:
+<$edit-text tiddler="$:/status/UserName" tag="input" default="" placeholder="Ihr Name" class="my-fullwidth"/>
+
+<$checkbox tiddler="$:/Einstellungen/WissenschaftlicherKommentar" listField="text" checked="show" unchecked="hide"> Wissenschaftliche Kommantare und Erklärungen anzeigen</$checkbox>
+
+<<comment "Das ist ein Beispiel für einen wissenschaftlichen Kommentar" >>
+
+! Über <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Der Lernmedien-Planer ist ein Projekt von Tobias Hölterhof im Rahmen der Schwerpunktprofessur „Gestaltung digitaler Bildungsumgebungen für das Gesundheitswesen“ an der [[Katholischen Hochschule NRW|https://www.katho-nrw.de]]. Das Tool wird in den Studiengängen zur Lehrendenbildung für die beruflichen Pflegeausbildung eingesetzt.
+
+Dies ist die ''Version {{$:/Version}}'' des Lernmedien-Planers für das Gesundheitswesen.
+
+[img  width="50%" [|Media/Logos/katho.svg]]
+
+
+! Impressum und Credits <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Der Lernmedien-Planer ist sowohl eine HTML-Seite als auch ein Computerprogramm. Auch wenn es im Webbrowser ausgefüht wird benötigt es keine Online-Verbindung. Sämtliche hier eingegebenen Daten sind ''nur in diesem Browserfenster'' verfügbar und gespeichert. Es findet keine Übertragung von Daten in das Internet statt. Auch werden keine Daten aus dem Internet nachgeladen. Eine Kopie der Schriftart und Icons sind in der HTML-Datei enthalten.
+
+Der Lernmedienplaner kann durch die Nutzenden vollständig bearbeitet werden (inklusive dieses Impressums). Diese Angaben gemäß §5 TMG beziehen sich daher auf die ursprüngliche und unbearbeitete Version:
+
+* Tobias Hölterhof `<t.hoelterhof@katho-nrw.de>`
+* Anschrift: Katholische Hochschule Nordrhein-Westfalen, Wörthstraße 10, 50668 Köln
+
+Das Tool basiert auf folgender Software:
+
+* [[TiddlyWiki|https://tiddlywiki.com]] von Jeremy Ruston, lizensiert unter der [[BSD-3 Lizenz|https://tiddlywiki.com]], Version <<version>>
+* Icons von [[OpenMoji|https://openmoji.org]], lizensiert unter [[CC BY-SA 4.0|https://creativecommons.org/licenses/by-sa/4.0/#]]
+* Schriftart [[IBM Plex|https://github.com/IBM/plex]], lizensiert unter [[OFL-1.1|http://scripts.sil.org/OFL]]
+
+Der Lernmedien-Planer wird unter der [[CC BY-SA 4.0|https://creativecommons.org/licenses/by-sa/4.0/#]]-Lizenz abgeboten. Damit wird diese Software ohne Haftung und Gewährleistung angeboten.
+
+! Planen <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Dieser digitale Assistenz führt Sie in mehreren Schritten durch die Konzeption des Lernmediums. Sie können die Schritte der Reihe nach durcharbeiten oder auch einzelne Schritte überspringen.
+
+
+<br clear="both"/>
+<<tabs "PlanenProjekt PlanenZiele PlanenStrategie PlanenKomponenten" "PlanenProjekt" "$:/state/TabPlanen" "tc-horizontal">>
+
+
+! PlanenProjekt <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!!! Das Lernmedium als Projekt
+
+Titel:<br />
+<$edit-text tiddler="$:/Projekt/Titel" tag="input" default="" placeholder="Titel des Lernmedium-Projekts…" class="my-fullwidth"/>
+
+Currularer Einsatz:<br />
+<$edit-text tiddler="$:/Projekt/Einsatz" tag="input" default="" placeholder="Lernfeld / Unterrichtseinheit / Einsatz des Lernmediums" class="my-fullwidth"/>
+
+Autor*innen:<br />
+<$edit-text tiddler="$:/Projekt/Autor" tag="input" default="" placeholder="Namen der beteiligten Personen" class="my-fullwidth"/>
+
+Datum:<br />
+<$edit-text tiddler="$:/Projekt/Datum" tag="input" default="" placeholder="Datum" class="my-fullwidth"/>
+
+Kommentar zum Projekt:<br />
+<$edit-text tiddler="$:/Projekt/Kommentar" tag="textarea" default="" placeholder="Ggf. organisatorische Kommentare zum Projekt ergänzen…" class="my-fullwidth"/>
+
+! PlanenStrategie <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!!! Didaktische Strategie des Lernmediums
+
+[[Gesamtkonzeption|Gesamtkonzeption]] des Lern- und Lernszenarios, in dem das Lernmedium eingesetzt wird:<br />
+<$list filter='[tag[Strategie]]' variable=item><$radio tiddler="$:/Projekt/Gesamtstrategie" field="text" value=<<item>>> <<item>></$radio><br /></$list>
+
+[[Funktionen|Funktionen von Lernmedien]] des Lernmediums:<br />
+<$list filter='[tag[Funktion]]' variable=item><$checkbox tiddler="$:/Projekt/Funktion" listField="text" checked=<<item>> unchecked=""> <<item>></$checkbox><br /></$list>
+
+Didaktischer Kommentar:<br />
+<$edit-text tiddler="$:/Projekt/DidaktischerKommentar" tag="textarea" default="" placeholder="Bitte beschreiben Sie die didaktische Herangehensweise" class="my-fullwidth"/>
+
+! PlanenZiele <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+\define NeueKompetenz()
+<$action-createtiddler $basetitle="Ziel" $template="VorlageZiel">
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+\end
+
+
+!!! Neue Zieldimensionen erstellen
+
+Bitte führen Sie die didaktische Intention des Lernmediums aus, indem Sie hier mehrere Ziele formulieren.
+
+<$button actions=<<NeueKompetenz>>>
+[img[Media/Icons/add-button.svg]] Neues Ziel erstellen
+</$button>
+
+!!! Übersicht der Zieldimensionen
+
+
+<$transclude tiddler="LernmediumZieldimensionen" mode="block"/>
+
+
+! LernmediumZieldimensionen <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="<p>Bisher wurden keine Ziele eingegeben.</p>">
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]" variable="ziel"><ul>
+<li><$link to=<<ziel>>><<ziel>></$link> <$list filter="[title<ziel>tags[]compare:string:ne[Zieldimension]]"><<tag>> </$list>
+</li></ul></$list>
+</$list>
+
+
+! VorlageZiel <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bitte die Zieldimension des Lernmediums hier beschreiben.
+
+! DummyZiel <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+! PlanenKomponenten <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!!! Neue Komponente erstellen
+
+Bitte wählen Sie einen Komponententyp aus:
+
+
+<$select tiddler='$:/state/CurrentComponent' default='' class="my-fullwidth">
+<$list filter='[tag[Komponententyp]]'><option><$view field='title'/></option></$list></$select>
+<$list filter='[{$:/state/CurrentComponent}minlength[1]]' emptyMessage="<p>Kein Komponententyp ausgewählt.</p>">
+
+<$set name=component value={{$:/state/CurrentComponent}}>
+<div class="tc-description-box"><$list filter="[<component>get[text]splitregexp[\n]first[1]]" variable="item" emptyMessage="Dieser Komponententyp beinhaltet keine Beschreibung."><<item>></$list> <$link to=<<component>>>Weiterlesen...</$link></div>
+
+
+<p>Bitte wählen Sie die Zieldimension der Komponente aus: <br/><$list filter='[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]' variable=skill>
+<$checkbox tiddler="$:/state/CurrentSkill" listField="text" checked=<<skill>>> <<skill>></$checkbox><br/>
+</$list></p>
+
+<$set name=skill value={{$:/state/CurrentSkill}}>
+<p><$button actions=<<NeueKomponente>>>
+[img[Media/Icons/add-button.svg]] Neue {{$:/state/CurrentComponent}}-Komponente anlegen
+</$button></p>
+</$set></$set>
+</$list>
+
+
+!!! Zusammensetzung des Lernmediums
+
+
+<$transclude tiddler="LernmediumKomponenten" mode="block"/>
+
+
+! LernmediumKomponenten <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="<p>Für das geplante Lernmedium wurden keine Komponenten angelegt.</p>">
+<ul><$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" variable="component">
+<li><$link to=<<component>>><<component>></$link> (<$transclude tiddler=<<component>> field="Komponententyp" mode="inline"></$transclude>) <$list filter="[title<component>tags[]compare:string:ne[Komponente]]"><<tag>> </$list>
+</li>
+</$list></ul>
+</$list>
+
+
+! VorlageKomponente <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bitte beschreiben Sie Ihre Komponente: Wie adressiert die Komponente die Zieldimension? Wie ist die Komponente gestaltet? Welche Strunktur weist sie auf?
+
+! DummyKomponente <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+! Analysieren <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/microscope.svg]]
+
+
+Diese Analyse fasst die Planung zusammen und gibt darüber hinaus Hinweise für Erstellung und Umsetzung der Planung.
+
+<br clear="both"/>
+
+<$button>
+[img[Media/Icons/overview.svg]] Report
+<$action-sendmessage $message="tm-open-window" $param="Report" windowTitle="Druckansicht" width="800" height="600" windowID="window1"/>
+</$button>
+
+<<tabs "AnalyseProjekt AnalyseZiele AnalyseStrategie AnalyseKomponenten AnalyseTools" "AnalyseProjekt" "$:/state/TabAnalyse" "tc-vertical">>
+
+! Report <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+
+<$button class="noprint">
+Drucken
+<$action-sendmessage $message="tm-print" />
+</$button>
+
+{{AnalyseProjekt}}
+
+{{AnalyseZiele}}
+
+{{AnalyseStrategie}}
+
+{{AnalyseKomponenten}}
+
+<p>&nbsp;</p>
+<hr>
+
+
+Report erzeugt mit dem Lernmedien-Planer {{$:/Version}}
+
+! AnalyseProjekt <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+<$list filter="[{$:/Projekt/Titel}minlength[1]]" emptyMessage="<h1>Projekt</h1>Kein Projekt angelegt">
+
+<h1>{{$:/Projekt/Titel}}</h1>
+
+<$list filter="[{$:/Projekt/Einsatz}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Einsatz}}</p></$list>
+<$list filter="[{$:/Projekt/Autor}minlength[1]]" emptyMessage="Keine Angaben zu Autor*in"><p>Ein Lernmedium von {{$:/Projekt/Autor}}<$list filter="[{$:/Projekt/Datum}minlength[1]]" emptyMessage="">, {{$:/ProjektDatum}}</$list>.</p></$list>
+
+<$list filter="[{$:/Projekt/Kommentar}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Kommentar}}</p></$list>
+</$list>
+
+! AnalyseZiele <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!! Zieldimensionen
+
+
+<p><$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="Für das geplante Lernmedium wurden keine Zieldimensionen angelegt.">Folgende Zieldimensionen sind für die Lernmedien spezifiziert:</$list></p>
+
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]" variable="ziel">
+<p><h2><$link to=<<ziel>>><<ziel>></$link></h2></p>
+<p><$transclude tiddler=<<ziel>> mode="block"></$transclude></p>
+
+<p><$list filter="[search:Zieldimensionen<ziel>nth[1]]" emptyMessage="Keine Komponente des Lernmediums adressiert diese Zieldimension">Diese Zieldimension wird von folgenden Komponenten adressiert:</$list>
+<ul><$list filter="[search:Zieldimensionen<ziel>]" variable="comp">
+<li><$link to=<<comp>>><<comp>></$link> <$list filter="[<comp>get[Komponententyp]]" variable="item">(<<item>>)</$list></li></$list></ul></p>
+
+<$list filter="[title<ziel>links[]has[modified]]" variable="link"><p><h3><$link to=<<link>>><<link>></$link></h3></p>
+<p><$transclude tiddler=<<link>> mode="block"></$transclude></p></$list>
+
+</$list>
+
+
+! AnalyseStrategie <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!! Didaktische Strategie
+
+Das Lernmedien fokussiert folgende Gesamtkonzeption: <br />
+{{$:/Projekt/Gesamtstrategie}}
+
+Das Lernmedium übernimmt folgende didaktische Funktionen: <br />
+{{$:/Projekt/Funktion}}
+
+Didaktischer Kommentar: <br />
+{{$:/Projekt/DidaktischerKommentar}}
+
+! AnalyseKomponenten <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!! Komponenten
+
+
+<p><$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="Für das geplante Lernmedium wurden keine Komponenten angelegt.">Folgende Komponenten sind als Lernmedien geplant:</$list></p>
+
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" variable="comp">
+<p><h2><$link to=<<comp>>><<comp>></$link> (<$transclude tiddler=<<comp>> field="Komponententyp" mode="inline"></$transclude>)</h2></p>
+<p><$transclude tiddler=<<comp>> mode="block"></$transclude></p>
+
+<$list filter="[title<comp>links[]has[modified]]" variable="link"><p><h3><$link to=<<link>>><<link>></$link></h3></p>
+<p><$transclude tiddler=<<link>> mode="block"></$transclude></p></$list>
+
+</$list>
+
+
+! AnalyseTools <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!! Autorenwerkzeuge
+
+Die folgenden [[Autorenwerkzeuge|Autorenwerkzeug]] sind u.a. geeignet, um diese Lernmedien zu erstellen:
+<<ListTools4Components "Autorenwerkzeug">>
+
+!! Plattformen
+
+Die folgenden [[Plattformen|Plattform]] sind u.a. geeignet, um diese Lernmedien in einem Lernangebot einzusetzen:
+<<ListTools4Components "Plattform">>
+
+! ExportLernmedienplanJSON <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+<$macrocall $name="jsontiddlers" filter="[title[$:/Projekt/Titel]]=[title[$:/Projekt/Einsatz]]=[title[$:/Projekt/Autor]]=[title[$:/Projekt/Datum]]=[title[$:/Projekt/Kommentar]]=[title[$:/Projekt/Gesamtstrategie]]=[title[$:/Projekt/Funktion]]=[title[$:/Projekt/DidaktischerKommentar]]=[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]=[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]links[]has[modified]]=[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]=[tag[Komponente]!prefix[Vorlage]!prefix[Draft]links[]has[modified]]" $output="text/raw"/>
+
+! ExportierenUndImportieren <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+!! Speichern
+
+Die aktuelle Planung kann mitsamt des Lernmedien-Planers als HTML-Datei abgespeichert werden. Diese Datei beinhaltet dann alle Daten und kann in jedem Webbrowser ausgeführt werden. Zum Speichern auf dieses Symbol klicken, welches auch rechts in der Toolbar zu finden ist:
+
+<$transclude tiddler="$:/core/ui/Buttons/save-wiki"></$transclude>
+
+!! Exportieren
+
+Es kann immer nur eine Planung im Lernmedien-Planer bearbeitet oder analysiert werden. Um mehrere Planungen zu verwalten, aber auch im die Planung von einem Lernmedienplaner in einen anderen zu überführen, können Planungen exportiert und importiert werden. So kann eine Planung auch in einer neuere Version des Lernmedien-Planers weiter bearbeitet werden.
+
+<$button>
+{{ $:/core/images/export-button }} Planung exportieren
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+</$button>
+
+!! Importieren
+
+Über diese Auswahl kann eine exportierte Planung wieder importiert werden:
+
+<$browse />
+
+! LehrenUndLernenMitMedien <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/light-blub.svg]]
+
+
+Der Einsatz digitaler Medien im Unterricht geht oft einher mit einer anderen Art und Weise des Lehrens und Lernens. Diese Veränderungen betreffen sowohl Planung, Durchführung und Reflexion von Lehr- und Lernszenarien, als auch die Rolle von Lehrenden in diesem Prozess. Hier sind einige Aspekte aufgeführt, die aus dieser Perspektive wichtig werden. <teaser />
+
+
+<<list-links filter:"[tag[Lehren und Lernen mit Medien]]+[sort[title]]">>
+
+
+! DesignVonLernmedien <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Modelle des Instruktionsdesigns schematisieren den Prozess bzw. wesentliche Aspekte von Planungs-, Durchführungs- und Evaluationsprozessen für Lehr- und Lernszenarien und nutzen dafür empirische Forschungsergebnisse. Dabei stellen Analyse, Design, Entwicklung, Implementierung und Evaluierung wichtige Phasen aller solcher Modelle dar. Das ADDIE-Modell stellt diese Aspekte als Kreislauf dar, indem jede Analyse gleichsam auch das Design wieder beeinflusst. Lernmedien nehmen einen wichtigen Teil in diesem Prozess ein, bleiben jedoch stets bezogen auf die didaktische Gesamtstrategie des Unterrichts, in dem sie eingesetzt werden.
+
+[img  width="70%;" [Abbildung: ADDIE als typische Phasen des Instruktionsdesigns|Media/Abbildungen/ADDIE.svg]]
+<br />//Abbildung: ADDIE als typische Phasen des Instruktionsdesigns//
+
+
+Der Lernmedien-Planer unterstützt bei Analyse und Design von Lernmedien, indem ein Spektrum möglicher Komponenten aufgezeigt wird, die auf didaktische Zieldimensionen hin fokussiert und zusammengestellt werden können. Die Entwicklung und Implementierung der Lernmedien findet nicht im Lernmedienplaner statt, dieser kann aber als Wiki den Prozess unterstützen und organisieren. Insbesondere werden Hinweise auf Computerprogramme gegeben, mit denen Entwicklung und Implementierung durchgeführt werden können. Schließlich bietet er als Dokumentationsmedium auch einen Ort, an dem Ergebnisse von Analyse und Reflexion festgehalten werden können.
+
+! DigitaleWerkzeuge <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Digitale Werkzeuge im Kontext der Mediendidaktik sind solche Computerprogramme und digitalen Anwendungen, die Gestaltung und Durchführung von Lehr- und Lernszenarien ermöglichen. Im Lernmedien-Planer sind sie als Autorenwerkzeuge und Plattformen differenziert. Dabei beschreiben [[Autorenwerkzeuge|Autorenwerkzeug]] solche digitalen Werkzeuge, mit denen Lehr- und Lernmedien sowohl durch die Lehrenden als auch durch die Lernende erstellt werden können. Unter [[Plattformen|Plattform]] werden digitale Anwendungen subsummiert, die die Durchführung von Lehr- und Lernszenarien mit diesen Medien ermöglichen. Mitunter verschwimmt diese Unterscheidung, etwa wenn Plattformen auch Autorenwerkzeuge integrieren.
+
+Die Anwendung solcher digitalen Werkzeuge ist für die Planung und Durchführung digital unterstützter Lehr- und Lernszenarien sowoh für die Lehrenden als auch für die Lernenden wichtig. Dabei prägen folgende Aspekte diese Computerprogramme als Editoren für Lernmedien. Grundsätzlich ist es empfehlenswert, sich mit unterschiedlichen Formen von Editoren vertraut zu machen.
+
+<<tabs "UserInterface WYSIWYG FormulareCode" "UserInterface" "$:/state/TabDigitaleWerkzeuge" "tc-horizontal">>
+
+! UserInterface <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Das User-Interface (UI) einer digitalen Anwendung beschreibt die Oberfläche über die das Programm bedient wird. Im Hinblick auf Autorenwerkzeuge für die Erstellung von Lehr- und Lernmedien können grob folgende Formen des User-Interface unterschieden werden:
+
+* ''Seitenbasiert'': Erstellung und Bearbeitung von z.B. Präsentationen oder Texten anhand von Seiten, Folien o.ä.
+* ''Zeitachsenbasiert'': Schnitt und Bearbeitung von z.B. Video- oder Audiodateien anhand einer Zeitachse
+* ''Ablaufbasiert'': Visuelles Programmieren von z.B. Spielen oder Trainings anhand von Flussdiagrammen
+* ''Formularbasiert'': Erstellen von z.B. Quiz oder Test anhand eines Formulars
+* ''Codebasiert'': Erstellung und Bearbeitung von z.B. Webseiten anhand von Code-Zeilen
+
+! WYSIWYG <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Das Akronym WYSIWYG steht für die Anfangsbuchstaben der Aussage: „what you see is what you get“. Es steht für ein Konzept in der Gestaltung von Editoren und bedeutet, dass beim Bearbeiten des Lernmediums stets das Endprodukt so dargestellt wird, wie es für die Lernenden ausgegeben wird. Typischerweise ist das bei seitenbasierten Texteditoren wie etwa [[Word|Word]] der Fall, indem der Text stets auf der ausdruckbaren DIN-A4-Seite dargestellt wird. Auch Präsentationen können oft so bearbeitet werden, wie das Endprodukt aussieht. Damit erleichtert WYSIWYG als Konstruktionsprinzip für Editoren enorm die Bedienung des Editors und die Usability der Software.
+
+Doch sind nicht alle digitalen Lernmedien auf diese Weise in Editoren bearbeitbar. Das WYSIWYG-Prinzip setzt voraus, dass es eine einheitliche Darstellung des Produktes gibt, wie etwa das DIN-A4-Blatt. Doch sind nicht alle Lernmedien ausdruckbar und dieses Seitenformat für kleine mobile Geräte wie etwa Smartphones schlecht geeignet. Auch bei flexibeln und personalisierbaren Medien kann es sein, dass es keine klare und einheitliche Darstellung gibt.
+
+! FormulareCode <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Formular- oder codebasierte Editoren besiten im Gegensatz zum WYSIWYG-Prinzip oft zwei Ansichten: eine editierbare Ansicht als Formular mit Eingabemaske oder als Code und eine Ausgabeansicht, die das Endprodukt als Vorschau darstellt. Das Erstellen von Lernmedien mit diesen Editoren erfordert oft eine Einarbeitung: Nutzende benötigen eine Vorstellung vom Endprodukt, ehe die Eingabemaske oder der Code verständlich wird.
+
+Dafür ermöglichen diese Editoren die Erstellung anderer und oft interaktiver und multimedialer Lernmedien. Solche Lernmedien sind etwa Tests oder Quizze, die automatisch Rückmeldungen an die Lernenden geben, wenn ein Antwort nicht den Erwartungen entspricht. Die Komplexität dieser Lernmedien sind oft nicht im Sinne des WYSIWYG-Prinzips bearbeitbar oder nur unter Einschränkung der Funktionalität des Endprodukts. Ein Beispiel für einen solchen Editor ist etwa [[H5P|H5P]].
+
+! AustauschUndDiskussion <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Häufig wird die computervermittelte Kommunikation der natürlichen Kommunikation gegenübergestellt und als ''Kanalreduktion'' charakterisiert. Dieser Ansatz beschreibt, dass weniger Kommunikationskanäle zur Verfügung stehen und somit z.B. taktile Reize, aber auch Aspekte der Mimik oder Gestik nicht übertragen werden. Dieser Kanalansatz ist jedoch wenig geeignet, die Andersartigkeit computervermittelter Kommunikation zu beschreiben. Demgegenüber fokussiert ein relationaler Ansatz auf den entstehenden ''Interaktionsprozess'' zwischen den Beteiligten eines Kommunikationsprozesses. Aus dieser Perspektive lässt sich feststellen, dass computervermittelte Kommunikation zwar ostmals mehr Zeit benötigt, auf Dauer aber eine ähnliche Intensität sozialer Nähe und Beziehung aufbauen kann. Darüber hinaus werden Besonderheiten dieser Kommunikationsform hervorgehoben, wie z.B. die räumliche und zeitliche Flexibilität.
+
+Grundsätzlich lassen sich im didaktischen Kontext zwei Formen computervermittelter Communikation unterscheiden:
+
+<<tabs "Synchron Asynchron" "Synchron" "$:/state/TabAustauschUndDiskussion" "tc-horizontal">>
+
+Aus ''didaktischer Perspektive'' wird deutlich, dass soziale Lernprozesse in digitalen Umgebungen mit computervermittelter Kommunikation vorbereitet werden müssen: Jede Kommunikation steht im Zusammenhang des vorhergehenden Austauschs. Diese Rekursivität ist auch bei computervermittelter Kommunikation prägend. So werden Interaktions- und Austauschprozesse mit digitalen Medien zum Gegenstand einer Unterrichtsplanung. Folgende Anregungen sind für die Ausarbeitung entsprechender Komponenten eines Lernmedium interessant:
+
+* Formulieren Sie beispielhafte Interaktionsbeiträge in der Ausarbeitung einer Komponente: Welche Frage wird gestellt? Welche Antwort wird erwartet? Welche Kommentare auf die Antworten werden erwartet?
+* Überlegen Sie, wie die unterschiedlichen Beiträge der Lernenden zu einem gemeinsamen, sozialen Lernerlebnis beitragen: Wie sollten die Beiträge der Lernenden geschrieben sein, so dass andere Lernende interesse haben, diese zu lesen und zu kommentieren? Was können die Lernenden im Interaktionsprozess voneinander lernen?
+* Planen Sie, wann welche Beiträge eingestellt werden: Wieviel Zeit haben die Lernenden für eine Reaktion?
+
+! Synchron <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bei einer synchronen Zusammenarbeit sind die Teilnehmenden ''zur gleichen Zeit'' engagiert: Beiträge oder Änderungen sind sofort sichtbar. Synchrone Komponenten schaffen im Rahmen von digitalen Lernmedien eine Spontanität, doch die Beiträge der Teilnehmenden sind typischerweise flüchtig und nicht permanent verfügbar. Hier können Teilnehmende Impulse oder Ideen entwickeln, Themen besprechen oder Projekte organisieren.
+
+! Asynchron <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bei einer asynchronen Zusammenarbeit sind die Teilnehmenden ''nacheinander'' engagiert: Beiträge oder Änderungen werden zeitversetzt eingestellt oder vorgenommen. Die Teilnehmenden greifen nicht gleizeitig auf die Ressource zu. Asynchronen Kommunikation besitzt eine höhere Permanenz, da die Beiträge verfügbar und rekonstruierbar bleiben: Sie können auch später nachgelesen werden. Dieser Aspekt ist interessant für Reflexion und Argumentation der Lernenden sowie für nachvollziehbare, kritische Diskurse.
+
+! Gesamtkonzeption <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Im Kontext der didaktischen Planung von Lehr- und Lernszenarien wird zwischen zwei grundlegend verschiedenen Gesamtstrategien differenziert, wie solche Szenarien geplant und organisiert werden können. Die Lehr- und Lernforschung zeigt, dass beide Herangehensweisen sinnvoll und gewinnbringend sein können. Die Didaktik weist jedoch auf die Methodenvielfalt hin, so dass nicht nur eine der beiden Strategien umgesetzt werden sollte. Es ist also sinnvoll, sich mit beiden Varianten auseinanderzusetzen und Erfahrungen mit beiden Varianten zu sammeln.
+
+<<tabs "Darbieten Entdecken" "Darbieten" "$:/state/TabGesamtkonzeption" "tc-horizontal">>
+
+! Darbieten <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine darbietende Gesamtkonzeption zeigt einen Fokus bei der ''Vermittlung vorher durch Lehrende identifizierter und festgelegter Inhalte''.
+
+Es werden oft Präsentationen, Videos oder ähnliche Medien verwendet und der Lernprozess durch solche Medien bzw. durch die Lehrenden vorgegeben und strukturiert. Alle Lernende folgen dem gleichen oder einem ähnlichen Prozess. Die Bestimmung der Reihenfolge der Inhalte sowie deren interessante Darbietung aber auch das Herausstellen von Relevanz und Anwendung der Inhalte sind wichtige Aspekte in der Planung solcher darbietender Lernmedien. Dabei sind auch Lernaufgaben geeignet, um eine Auseinandersetzung mit den Inhalten anzuregen.
+
+Eine solche Darbietung wird im didaktischen Kontext auch Exposition genannt. Sie steht im Kontext von Unterrichtsmethoden wie etwa dem Informationsinput, Frontalunterricht oder auch dem Erklärvideo.
+
+! Entdecken <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine entdeckende Gesamtkonzeption zeigt einen Fokus sowohl bei der ''eigenständigen Identifikation von Inhalten als auch bei der Aneignung dieser Inhalte'' durch die Lernenden.
+
+Es werden oft vielfältige Materialsammlungen, Datenbanken, Fälle sowie Verweise in das Internet eingesetzt, um den Lernenden Ressourcen für ihre Entdeckungsprozesse zur Verfügung zu stellen. Die Aneignungsprozesse werden stark durch die Interessen und Motive der Lernenden gesteuert, die auch Lernziele werden selbst gesteckt. Die Lernenden folgen daher unterschiedlichen Prozessen und arbeiten in Gruppen. Sinnvoll ist oft eine Zusammenführung der verschiedenen Erarbeitungen sowie das Anregen einer Beschäftigung auch mit den Resultaten der anderen Lernenden.
+
+Eine solche Entdeckung wird im didaktischen Kontext auch Exploration genannt. Sie steht im Kontext von Unterrichtsmethoden wie dem erfahrungsorientierten Unterricht, Projektarbeit oder dem problemorientierten Unterricht.
+
+! FunktionenLernmedien <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Digitale Lernmedien können im Unterricht verschiedene didaktisch relevante Funktionen einnehmen. Diese Funktionen besitzen oft Wechselwirkungen mit der Rolle des Lehrenden sowie mit anderen Elementen des Unterrichts. So können etwa Medien die Funktion der Vermittlung von Inhalten übernehmen; eine Funktion, die oft auch von Lehrenden eingenommen wird. Die didaktischen Funktionen von Lernmedien lassen soch folgendermaßen differenzieren:
+
+<<tabs "Vermittlung Konstruktion Kommunikation Lernwerkzeug SimulationExperiment Bewertung Steuerung" "Vermittlung" "$:/state/TabFunktion" "tc-vertical">>
+
+Für die Planung von Lernmedien ist es sinnvoll, die didaktischen Funktionen des Lernmedium vorab zu spezifizieren. So kann die Planung des Lernmediums mit der didaktischen Planung des Unterrichts abgestimmt werden. Freilich können die hier aufgeführten didaktischen Funktionen auch ohne digitale Medien abgedeckt werden.
+
+! Vermittlung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Digitale Medien können Informationen und Wissensbestände auf vielfältige Art und Weise vermitteln. So ermöglichen sie z.B. [[Präsentationen|Präsentation]], [[Visualisierungen|Visualisierungen]] sowie verschiedene Formen von [[Videos|Video]]. Auch das Internet wird zur Wissensvermittlung und Aneignung genutzt und bietet vielfältige Ressourcen hierfür.
+
+! Konstruktion <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Aus einer konstruktivistischen Perspektive ist jedes Lernen ein Konstruktionsprozess des lernenden Subjekts. Dieser Konstruktionsprozess kann durch Lernmedien strukturiert werden, etwa indem Aufgaben gestellt werden oder Handlungen angeregt werden. Solche Konstruktionsprozesse können direkt mit Medien oder Computern stattfinden, wie etwa beim [[EPortfolio|EPortfolio]]. Sie können aber auch durch Lernmedien strukturiert bzw. induziert werden und dann unabhängig von Computern oder Medien stattfinden, wie bei der [[Lernaufgabe|Lernaufgabe]].
+
+! Kommunikation <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[[Austausch und Diskussion|Austausch und Diskussion]] ist ein klassischer Anwendungsbereich von computervermittelter Kommunikation mit digitalen Geräten etwas über das Internet. Auch im Kontext von digital unterstützten Lehr- und Lernszenarien können Medien eine kommunikative Funktion übernehmen. Die Formen solcher Kommunikation reichen von [[Videokonferenzen|Videokonferenz]] über [[Online-Foren|OnlineForum]] bis hin zu [[Weblogs|Weblog]].
+
+! Lernwerkzeug <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Computer und digitale Geräte sind auch für die Lernenden selbst wichtige Werkzeuge in der Organisation ihrer Lernprozesse. Dabei ist nicht nur die persönliche Lernorganisation angesprochen, die etwa durch Terminverwaltung oder digitale Notizen unterstützt wird. Auch bei Gruppen- und Projektarbeiten ist eine Organisation von [[Lerngruppen|Gruppe]] erforderlich, für die viele digitale Lernplattformen Werkzeuge zur Verfügung stellen, etwa [[Wikis|Wiki]], [[Online-Textdokumente|OnlineTextdokument]], [[digitale Pinnwände|OnlinePinnwand]] etc.
+
+! SimulationExperiment <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Computer können immersive Umgebungen aufbauen, in denen Handlungen antizipiert und angebahnt werden. Dies geschieht etwa mit VR-Technologie in einer [[virtuelle Welt|VirtuelleWelt]]. Doch auch einfachere und weniger immersive Formen der Simulation wie etwa interaktive und drehbare Abbildungen als [[Visualisierung|Visualisierung]] besitzen einen didaktischen Mehrwert: sie vermitteln eine Vorstellung von Objekten und Zusammenhängen. Schließlich können mit Computern auch Experimente durchgeführt werden: sie werden so zum eigenen Erkenntnismittel.
+
+! Bewertung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Lernmedien ermöglichen auch eine Einschätzung von Lernergebnissen sowie eine Rückmeldung an die Lernenden. Sie können damit den Lernstand erfassen sowie transparent machen und aufzeigen, wo weitere Lernbedarfe liegen. Beispiele hierfür sind etwa Multiple-Choice Fragen in [[Tests|TestQuiz]] mit entsprechenden Rückmeldungen.
+
+! Steuerung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Digitale Lernumgebungen können die vorhergehenden Aktivitäten der Lernenden erfassen und abhängig hiervon Prozesse steuern. So können Inhalte freigeschaltet werden, wenn Tests erfolgreich absolviert wurden. Oder es können zusätzliche oder andere Inhalte eingeblendet werden, wenn Defizite erkennbar werden. Doch auch einfachere Formen der Steuerung sind interessant, wie z.B. das zeitgesteuerte Freischalten von Aktivitäten oder Inhalten. Solche Möglichkeiten bieten etwa [[Learning-Management Systeme|LearningManagementSystem]].
+
+! Visualisierungen <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span> <span class="tag" tag-name="current"><span style="font-variant: small-caps;">current</span></span>
+
+<a class="lit" href="##ref-clark2016els">@clark2016els</a> unterscheidet folgende Beispiele für lernförderliche Visualisierungen:
+
+* Transformative Visualisierung
+* Interpretative Visualisierung
+* Organisatorische Visualisierung
+* Relationale Visualisierung
+
+! Komponententyp <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/puzzle.svg]]
+
+
+Oft sind Lernmedien vielfältig: sie setzen sich wie ein Puzzle aus unterschiedlichen Elementen zusammen. Diese Puzzelteile sind hier Komponenten. Komponententypen beschreiben typische Formen solcher Teile, die mit [[Autorenwerkzeugen|Autorenwerkzeug]] erstellt und auf [[Plattformen|Plattform]] angeboten werden können. <teaser />
+
+In diesem Lernmedien-Planer sind folgende Komponententypen eingetragen:
+
+<<list-links filter:"[tag[Komponententyp]]+[sort[title]]">>
+
+
+! Wiki <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Wiki ist eine von mehreren Personen gemeinsam bearbeitete Sammlung von eher textbasierten Online-Seiten, die auch multimediale Elemente enthalten können. Wikis sind bekannt für die einfache Bearbeitung der Seiten durch alle Beteiligten, oft gibt es auf jeder Seite einen gut sichtbaren Edit-Button, mit dem alle Beteiligten den Inhalt der Seite verändern können. Während des Editierens können neue Unterseiten angelegt und verlinkt werden. Überarbeitungen werden als Versionen gespeichert. Auf diese Weise bilden Wikis kollaborative Wissensbasen.
+
+Links und Unterseiten werden oft durch die CamelCase-Schreibweise beim Eingeben von Text erzeugt: Werden mehrere Wörter ohne Leerzeichen miteinander verbunden, wobei jedes Wort mit einem Großbuchstaben beginnt - [[WieZumBeispielHier|WieZumBeispielHier]] - so wird eine neue Unterseite erzeugt und ein Link darauf angelegt.
+
+Für digital unterstütztes Lehren und Lernen stellen Wikis Wissensdatenbanken dar, in denen die Lernenden gemeinsam Themenfelder erarbeiten. Dabei kann es hilfreich sein, wenn die Lehrenden eine Seitenstruktur vorgeben und einstellen, um die Erarbeitung zu unterstützen. Ein Wiki kann aber auch eine Projektarbeit koordinieren und dokumentieren oder andere Arbeitsergebnisse von Arbeitsphasen sammeln. Wikis können auch für [[E-Portfolios|EPortfolio]] eingesetzt werden.
+
+! OnlineForum <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Online-Forum ist eine computervermittelte Kommunikationsform als asynchronen Online-Diskussion mit mehreren Teilnehmenden. Die Diskussion der Teilnehmenden ist in Threads oder Themen strukturiert. Die Teilnehmenden schreiben neue Beiträge entweder in bestehende Threads oder eröffnen neue Threads. Die Beiträge können Text, Bilder oder multimediale Elemente enthalten, oft sind auch Dateianhänge möglich. In der Regel können alle Beiträge wieder durch neue Beiträge kommentiert werden.
+
+Im Kontext des digital unterstützten Lehrens und Lernens bilden Online-Foren einen themenzentrierten, oft textbasierten Diskussionsraum. Dieser kann z.B. für die Besprechung spezifischer, vorgegebener Aufgabenstellungen, als Marktplatz für die Präsentation von Lernartefakten oder für Feedback- und Supportprozesse genutzt werden. Diskussionen in Online-Foren benötigen Zeit und sollten vorbereitet und moderiert werden: Beispielsweise können Threads vorbereitet werden, Anweisungen für die Diskussion eingestellt und Hinweise zu Rückmeldungen gegeben werden.
+
+Im Gegensatz zu vielen sozialen Netzwerken sind Online-Foren nicht primär chronologisch, sondern thematisch strukturiert: Neue Beiträge erscheinen nicht einfach oben in der Liste, sondern unter den Themen, denen sie zugeordnet sind. Außerdem werden in vielen sozialen Netzwerken nur die Beiträge der Personen angezeigt, denen man folgt. In Online-Foren hingegen werden die Beiträge aller Teilnehmenden angezeigt.
+
+Synonyme für diese Komponente: Internetforum, Message Board.
+
+! Präsentation <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine Präsentation ist eine in Folien oder Ansichten unterteilte Darstellung von Texten, Grafiken, Bildern, Videos oder multimedialen Inhalten. Häufig werden Präsentationen zur Unterstützung des Vortrags einer Person eingesetzt, z.B. bei einer Präsenzveranstaltung im Klassenraum. Typischerweise werden die Folien dann mit einem Beamer oder auf einem Smartboard im Klassenraum gezeigt. Eine Präsentation kann aber auch eine Audio- oder Videoaufzeichnung enthalten und zur selbstständigen Erarbeitung ohne Vortragende erstellt werden. In diesem Fall wird die Präsentation von den Lernenden auf ihren eigenen Endgeräten angesehen.
+
+Schließlich können auch die Lernenden Präsentationen erarbeiten, etwa um anderen Lernenden etwas zu erläutern. Bitte verwenden Sie in diesem Fall aber nicht diese Komponente, sondern konzipieren Sie eine Lernaufgabe mit einer entsprechenden Anweisung.
+
+! Kreuzworträtsel <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Kreuzworträtsel sind eine Spielform, bei der die Spielenden anhand von Hinweisen die gesuchten Wörter identifizieren und in ein entsprechendes Gitter eintragen. Dabei können sich Wörter kreuzen und überschneiden. Manchmal ergibt sich aus den markierten Gitterzellen auch ein Lösungswort.
+
+! TestQuiz <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Test im Kontext des digital unterstützten Lernens ist ein Lernmedium, mit dem Wissen oder Fähigkeiten getestet, überprüft und ggf. bewertet werden. Manchmal geben Tests den Lernenden auch Feedback und Hinweise. Häufig werden solche Aktivitäten auch als Quiz bezeichnet, insbesondere wenn der Test einen spielerischen Charakter hat. Der Test bzw. das Quiz kann verschiedene Formate haben: Multiple-Choice-Fragen, Lückentexte, Zuordnungsaufgaben etc.
+
+Im Kontext des digital unterstützten Lehrens und Lernens ermöglicht der Test bzw. das Quiz eine Selbstlernkontrolle für die Lernenden: Die Aktivität hilft den Lernenden, ihren Lernstand einzuschätzen.
+
+! Glossar <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Glossar ist ein Verzeichnis von Begriffen und deren Erklärung oder Beschreibung. Als Aktivität im Kontext digital unterstützten Lehrens und Lernens können Glossare nicht nur von Lehrenden erstellt, sondern auch von Lernenden gemeinsam recherchiert und erstellt, ergänzt und überarbeitet werden.
+
+! Abstimmung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine Abstimmung ist eine Befragung der Teilnehmenden nach ihren Einschätzungen, Präferenzen oder Meinungen zu einem Thema. Abstimmungen bestehen in der Regel aus einer Frage und mehreren Antwortmöglichkeiten, können aber auch andere Formate haben. Die Ergebnisse der Abstimmungen sind für die Lernenden oft sichtbar, sobald die Abstimmung abgeschlossen ist.
+
+Im Kontext des digital unterstützten Lehrens und Lernens ermöglichen Abstimmungen, die Meinungen der Teilnehmenden zu erfassen und in den Lehr- und Lernprozess einfließen zu lassen. Im Gegensatz zum [[Test|TestQuiz]] findet keine Bewertung oder Kontrolle der einzelnen Antworten statt.
+
+! Umfrage <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Umfragen sind im Allgemeinen Befragungen von Teilnehmenden und ähneln in dieser Hinsicht der [[Abstimmung|Abstimmung]]. In bestimmten Kontexten sind Umfragen jedoch spezifischer, indem sie Erhebungen mit teilweise erprobten Fragebögen zur Evaluation von Lernprozessen anbieten. In diesem Fall wird nicht die Meinung der Teilnehmenden eingeholt, sondern das Lernangebot evaluiert, um es weiterzuentwickeln und zu verbessern.
+
+! Lernaufgabe <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Aufgaben sind strukturierte Aktivitäten der Lernenden im Rahmen der Aneignung eines Gegenstands, einer Kompetenz oder eines Themas. Im Kontext des digital unterstützten Lehrens und Lernens werden Lernaufgaben häufig mit speziellen Funktionen digitaler Plattformen umgesetzt. Die Lernenden erhalten eine Aufgabenstellung, in der sie aufgefordert werden, ein Lernartefakt zu erstellen. Die Plattformen ermöglichen es dann, das Lernartefakt als Datei hochzuladen. In der Regel sehen die Lernenden die Ergebnisse der anderen Lernenden nicht. Über diese Plattformen kann dann auch Feedback zu den Arbeiten organisiert werden. Auf diese Weise geben z.B. die Lernenden Feedback zu den Ergebnissen der anderen Lernenden oder die Lehrenden geben Feedback.
+
+Solche Aufgabenstellungen für Lernaufgaben sind in der Regel Textdokumente, können aber auch multimediale Ressourcen wie z.B. Audio- oder Videobeiträge sein bzw. enthalten. Als Ergebnis der Lernaufgabe sind ebenfalls unterschiedliche Formate denkbar, wie z.B. Poster, Audio- oder Videobeiträge, Präsentationen etc.
+
+Lernaufgaben können auch mit Hilfe von [[Wikis|Wiki]] gestellt und bearbeitet werden. Die Lernenden sehen dabei immer den Fortschritt der anderen Teilnehmenden.
+
+! Chat <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Chat ist eine computervermittelte Kommunikationsform, bei der mehrere Teilnehmende synchron, oft über Textbeiträge, miteinander diskutieren. Die Teilnehmenden tippen ihre Diskussionsbeiträge in ein Textfeld und senden sie ab. Alle gesendeten Beiträge erscheinen in chronologischer Reihenfolge im Chatbereich. Personen können anhand ihres Namens identifiziert werden. Fortgeschrittene Chat-Plattformen ermöglichen auch die Einrichtung von Unterbereichen, in denen Gruppen miteinander chatten.
+
+Manchmal spricht man auch von einem „Video-Chat“ und meint damit eine [[Videokonferenz|Videokonferenz]]. Chats sind oft auch ergänzende Tools z.B. bei Videokonferenzen oder Spielen und bilden hier einen eigenen Austauschkanal.
+
+Im Kontext digital unterstützten Lehrens und Lernens ermöglichen Chats niedrigschwellige Formen des Austauschs. Chats finden auch begleitend zu anderen Aktivitäten wie etwa bei einer Videokonferenz statt und ermöglichen einen Austausch ohne Bild- oder Tonübertragung von sich aktivieren zu müssen. Chatbeiträge sind oft kürzer als Beiträge im [[Online-Forum|OnlineForum]]. Sie können Prozesse oder Aktivitäten unterstützen: In einem Wasserfall-Chat z.B. schreiben die Teilnehmenden einer Videokonferenz Beiträge zu einer Frage, die alle gleichzeitig verschickt und den anderen gezeigt werden.
+
+! Podcast <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Als Podcast werden häufig mehrere episodenartige Audiobeiträge oder -aufzeichnungen bezeichnet, die nacheinander im Internet veröffentlicht werden. Auf Lernplattformen sind Podcasts oft nicht öffentlich zugänglich, sondern nur den Teilnehmenden eines Bildungsangebots. Neben Audiobeiträgen sind auch Videobeiträge möglich, die dann oft auch als Vodcast oder Video-Podcast bezeichnet werden.
+
+Podcasts ermöglichen flexibles Lernen auch an anderen Lernorten: Audiobeiträge können einfach und begleitend im Alltag rezipiert werden. Dabei können diese Beiträge sowohl von den Lehrenden als auch von den Lernenden erstellt werden.
+
+! BuchLektion <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Buch oder eine Lektion ist eine Sammlung von Lehr- und Lernmaterialien, die von Lehrenden auf Lernplattformen erstellt und den Lernenden zur Verfügung gestellt werden. Diese Materialien sind oft wie ein Buch in Seiten strukturiert, können aber sowohl Text- als auch Multimedia-Elemente enthalten. Solche Lektionen werden typischerweise in Kurse oder Gruppen eingestellt und sind für die Teilnehmenden zugänglich.
+
+Ein Buch oder eine Lektion auf einer Lernplattform mag mit einem klassischen Lehrbuch assoziiert werden, ist aber eher eine Sammlung von Inhalten oder Materialien, die für den Unterricht relevant sind. Beispiele sind Einführungstexte, Lernaufgaben, Projektanweisungen etc. Da die Lernplattform ein Teil des Internets ist, können auch Verweise und Links auf andere Inhalte und Webseiten im Netz eingestellt werden, ebenso wie Videos. Auch Literaturhinweise auf Lehrbücher sind möglich. Häufig werden solche digitalen Materialien auf Lernplattformen als wiederverwendbare Lernobjekte implementiert und können so in mehreren Kursen verwendet werden. Es gibt auch Funktionen für den Export und Import solcher Materialien sowie für die Konvertierung der Inhalte zwischen verschiedenen Lernplattformen.
+
+Im Gegensatz zu einer [[Präsentation|tidder:Präsentation]] sind Bücher oder Lektionen ausführlicher und für die selbstständige Erarbeitung ohne Vortragenden gedacht. Oft haben Sie auch Unterseiten bzw. Kapitel.
+
+! Video <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Videos sind audiovisuelle Aufzeichnungen, die von den Lernenden in der Regel individuell und mit dem eigenen Endgerät angeschaut werden. Dabei können die Lernenden in den Videos hin- und herspringen, d.h. Passagen können wiederholt angeschaut oder Abschnitte gezielt angesprungen werden. So können die Lernenden die Rezeption des Videos nach ihren eigenen Lernbedürfnissen steuern. Die Videos sind entweden von Lehrenden erstellt, oder Lernende machen diese für andere Lernende. Sie können verschiedene Formen annehmen, z.B. Erklärvideos, Vorlesungsaufzeichnungen, interaktive Videos, Dokumentationen etc.
+
+Bei interaktiven Videos wird die Wiedergabe an einer bestimmten Stelle unterbrochen und das Video erwartet eine Interaktion des Lernenden, z.B. durch ein Quiz. Im Gegensatz zu [[Präsentationen|Präsentation]] sind Videos in der Regel für die selbstständige Erarbeitung ohne Vortragenden konzipiert.
+
+! Weblog <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Weblogs sind eine Form der computervermittelten Kommunikation und im ursprünglichen Sinne eigene Webseiten im Internet, auf denen Beiträge - sogenannte Posts - in chronologischer Reihenfolge veröffentlicht, mit Tags verschlagwortet und von lesenden Personen kommentiert werden können. Oft werden Weblogs von einzelnen oder wenigen Autor*innen zu bestimmten Themen oder Anliegen geschrieben, wie z.B. Kochrezepte oder Pflegethemen. Auf Lernplattformen sind Weblogs nicht öffentlich zugänglich, sondern nur für die Teilnehmenden eines Bildungsangebots. Sie bilden hier einen Raum, in dem Beiträge von Lernenden chronologisch eingestellt, verschlagwortet und kommentiert werden können.
+
+Im Gegensatz zu [[Online-Foren|OnlineForum]] sind die Beiträge im Weblog nicht in Threads oder Themen strukturiert. Stattdessen steht der neueste Beitrag immer ganz oben. Auch die Möglichkeit, Einträge zu verschlagworten, ist ein Unterschied zum Online-Forum. Schließlich steht bei einem Blogeintrag eher die einzelne Person im Vordergrund, die den Eintrag geschrieben hat.
+
+! Videokonferenz <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine Videokonferenz ist eine synchrone Form der computervermittelten Kommunikation mit Audio- und Videoübertragung der Teilnehmenden. Typischerweise wird neben den Videos der Teilnehmenden ein [[Chat|Chat]] sowie eine Liste der Teilnehmenden zur Verfügung gestellt. Das Gespräch kann moderiert werden, indem die Teilnehmenden Markierungen wie Handzeichen oder andere Zeichen in ihrem Videobild oder ihrem Eintrag in der Teilnehmendenliste anzeigen. Teilnehmende können dabei verschiedene Rollen einnehmen, wie etwa Moderator oder Präsentator. Es ist auch möglich, den Teilnehmenden eine Präsentation oder eine Bildschirmfreigabe zu zeigen. Einige Videokonferenzplattformen unterstützen auch Unterräume für Gruppengespräche mit wenigen Teilnehmenden.
+
+Im Kontext des digital unterstützten Lehrens und Lernens können Videokonferenzen für Vorträge der Lehrenden genutzt werden. Bei hybriden Veranstaltungen ergänzen Videokonferenzen eine Präsenzveranstaltung. Aber auch die Lernenden können Videokonferenzen für Absprachen und Gruppentreffen nutzen.
+
+! Gruppe <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Im Kontext von Lernplattformen ist eine Gruppe ein Teilbereich, oft innerhalb eines Kurses oder Angebots, den die Teilnehmenden einer Lern- oder Arbeitsgruppe selbst gestalten, verändern oder erweitern können. Innerhalb einer Gruppe können die Mitglieder dann Aktivitäten oder Ressourcen erstellen und gemeinsam bearbeiten. Gruppen sind aber auch außerhalb von Lernplattformen möglich und bieten eine Arbeitsumgebung für mehrere Teilnehmende.
+
+! VirtuelleWelt <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine virtuelle Welt ist eine simulierte räumliche Umgebung, die durch einen Computer auf immersive Weise dargestellt wird. Typischerweise werden die Teilnehmenden in dieser virtuellen Welt durch Avatare repräsentiert, die oft menschliche Figuren sind. Die Welt kann über einen Bildschirm oder eine VR-Brille betrachtet und über eine Tastatur, eine Maus oder Controller, die mit der VR-Brille verbunden sind, gesteuert werden. Oft sind mehrere Personen in einer virtuellen Welt anwesend. Die Welt kann so gestaltet sein, dass die Teilnehmenden Umgebungen und Objekte erkunden und entdecken können. Präsentationen und Diskussionen sind in virtuellen Welten ebenso möglich wie die Annäherung an Handlungsabläufe oder Fertigkeiten.
+
+Im Kontext des Lehrens und Lernens mit digitalen Medien werden virtuelle Welten unterschiedlich eingesetzt. Sie können eine Alternative zu [[Videokonferenzen|Videokonferenz]] darstellen und einen synchronen, audiovisuellen Diskussionsraum zur Verfügung stellen. Sie können aber auch so gestaltet werden, dass die Teilnehmenden Themen und Zusammenhänge in der Umgebung entdecken und erforschen können. Schließlich kann eine virtuelle Welt auch die Möglichkeit bieten, berufliche Handlungsabläufe oder Fertigkeiten in einer simulierten Umgebung zu erproben.
+
+! AugmentedReality <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bei Augmented Reality wird ein gefilmtes Bild der Umgebung in Echtzeit mit digitalen Inhalten ergänzt. Typischerweise werden Smartphones oder VR-Brillen verwendet, um die Umgebung zu filmen und darzustellen. In diese Darstellungen werden dann je nach gefilmter Perspektive und Blickwinkel Grafiken oder Objekte eingeblendet. Hierdurch werde Informationen angezeigt, die in der Umgebung sonst nicht sichtbar sind.
+
+! OnlinePinnwand <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine Online-Pinnwand ist eine kollaborative Website, auf der die Teilnehmenden Texte, Bilder, Videos und andere Inhalte und Dateien auf digitalen Karten veröffentlichen können. Typischerweise können diese Karten auf der Seite verschoben werden, um sie zu sortieren oder zu strukturieren. Als kollaborative Umgebung können die Pinnwände von mehreren Teilnehmenden mitgestaltet oder sogar erstellt werden.
+
+Online-Pinnwände können im Kontext des digital unterstützten Lehrens und Lernens vielfältig eingesetzt werden. Sie eignen sich zum Brainstorming, aber auch zum Clustern von Impulsen oder Ideen der Teilnehmenden in einem Workshop. Sie können auch Materialsammlungen für Lernszenarien darstellen. Ein Kanban-Board ist eine spezielle Struktur für eine Online-Pinnwand und wird von einer Projektgruppe zur Planung ihrer Arbeitsprozesse in einer Projektphase verwendet. Auch für Projektarbeiten sind Online-Pinnwände daher insteressant.
+
+Als Materialsammlung ähneln Online-Pinnwände [[dem Buch bzw. der Lektion|BuchLektion]], bieten darüber zusätzlich die Möglichkeit der Beteiligung und Kommentierung durch die Lernenden.
+
+! OnlineTextdokument <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Online-Textdokument nutzt einen synchronen, webbasierten Texteditor für die Erstellung eines Dokumentes im Kontext des Lehrens oder Lernens. Da mehrere Teilnehmende gleichzeitig ein Dokument bearbeiten können ist ein solches Textdokument auch Ressource für eine Gruppe. Die Änderungen der Teilnehmenden sind sofort sichtbar. Je nach Funktionalität des Texteditors können Texte, Tabellen, Bilder oder multimediale Elemente in das Dokument eingefügt und bearbeitet werden. Meist verfügt ein solcher Editor über eine Versionsverwaltung, so dass vorherige Änderungen nachvollzogen werden können.
+
+Im Kontext des digital unterstützten Lehrens und Lernens können solche gemeinsamen Online-Textdokumente für die Zusammenarbeit von Lernenden genutzt werden. Beispielsweise kann das Ergebnis einer Lernaufgabe in einem solchen Dokument erarbeitet werden. Auch Lernaufgaben sind in solchen Dokumenten möglich, wenn Lehrende die Dokumente entsprechend vorbereiten, so dass die Lernenden die Aufgabe im Dokument bearbeiten.
+
+Im Gegensatz zu einem [[Wiki|Wiki]] enthalten die Dokumente in der Regel keine Unterseiten.
+
+! EPortfolio <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein E-Portfolio ist eine digitale Sammelappe, in der Lernende ihre Arbeiten, Projekte, Dokumente und Reflexionen, die während des Lernprozesses entstehen, ablegen. Diese Portfolioeinträge können privat bleiben oder mit anderen Lernenden geteilt und von ihnen kommentiert werden. Schließlich können Portfolios auch öffentlich im Internet geführt werden.
+
+Im Kontext des digital unterstützten Lehrens und Lernens werden E-Portfolios eingesetzt, um den persönlichen Lernfortschritt der Lernenden zu verfolgen und zu reflektieren. Mit Hilfe solcher Portfolios können Lernprozesse nachvollzogen werden.
+
+! InteraktiveKarteikarten <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Interaktive Karteikarten sind digitale Anwendungen, bei denen die Lernenden zunächst die eine Seite einer Karte sehen und dann durch Anklicken die andere Seite. Diese Seiten können Texte, Bilder oder andere multimediale Elemente enthalten. Oft sind mehrere Karten in einer Sammlung zusammengefasst. Die Karten können bearbeitet und wiederholt werden.
+
+Im Kontext des digital unterstützten Lehrens und Lernens ahmen solche Werkzeuge das Auswendiglernen von Begriffen mit Karteikarten nach. Sie können beispielsweise zum Lernen von Definitionen, Fremdwörtern, Fachbegriffen usw. verwendet werden. Die Karteikarten können von den Lernenden selbst erstellt oder von den Lehrenden für die Lernenden vorbereitet sein.
+
+! Visualisierung <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Eine Visualisierung ist eine grafische Darstellung im Kontext eines zu lernenden Zusammenhangs, oft als Ergänzung zu einer textlichen Darstellung. Es handelt sich nicht um dekorative Elemente. Vielmehr handelt es sich um mehr oder weniger immersive Abbildungen, Diagramme, Concept-Maps, Fotos, Videos oder Animationen, die das Verständnis von Zusammenhängen unterstützen und den Lernenden eine andere Darstellungsform bieten.
+
+Im Kontext des digital gestützten Lehrens und Lernens werden Visualisierungen oft im Zusammenhang mit [[Präsentationen|Präsentation]] oder in Lernmaterialien wir z.B. einer [[Lektion|BuchLektion]] eingesetzt.
+
+! Fall <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Fall verweist auf eine authentische oder fiktive Situation, die schriftlich oder in anderen medialen Darstellungsformen präsentiert wird. Häufig werden Fälle in Form einer überschaubaren schriftlichen Erzählung dargestellt, die in ihrer Offenheit mehrere Interpretations- oder Lösungsansätze zulässt. Fälle fordern die Lernenden zur Auseinandersetzung und zum Verstehen möglicher Handlungssituationen auf.
+
+! Gamification <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Unter Gamification versteht man die Integration von Elementen aus Computerspielen in Lernmedien, um die Motivation und den Spaß am Lernen zu steigen. Typische Beispiele sind etwa das Sammeln von Punkten, Badges sowie Leaderboards. Bei der konkreten Ausgestaltung der Komponente im Lernmedium ist jedoch zu beachten, dass diese Elemente auch gegenteilige Effekte haben können. Zudem sind formales Lernen und informelles Spielen nicht immer vereinbar.
+
+! Autorenwerkzeug <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/pencil.svg]]
+
+
+Ein Autorenwerkzeug für Lernmedien ist ein Computerprogramm, mit dem Lernmedien unterschiedlicher Typen erstellt werden können. Damit ist eine ganze Bandbreite von Programmen angesprochen, deren Bedienung und Nutzung eine wichtige Voraussetzung für die Gestaltung digital unterstützter Lernszenarien darstellt.<teaser />
+
+In diesem Lernmedien-Planer sind folgende Kategorien für Autorenwerkzeuge eingetragen:
+
+<<list-links filter:"[tag[Autorenwerkzeug]]+[sort[title]]">>
+
+
+! Plattform <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+[img  class="drop" [|Media/Icons/school.svg]]
+
+
+Eine Plattform stellt im Kontext digital unterstützten Lernens eine Basis für die Durchführung von Lehr- und Lernszenarien dar. Ähnlich wie das Schulgebäude stellen Plattformen die digitalen Räume und Umgebungen dar, in denen das digital unterstützte Lehren und Lernen stattfindet. <teaser />
+
+In diesem Lernmedien-Planer sind folgende Plattformen eingetragen:
+
+<<list-links filter:"[tag[Plattform]]+[sort[title]]">>
+
+
+! Smartphone <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Auch das Smartphone ist ein Autorenwerkzeug, das sich sowohl für die Erstellung von Lehr- und Lernmedien als auch im Kontext mediengestützter Lehr- und Lernszenarien eignet. Insbesondere die Kamera ist hier für die Erstellung von Bildern und Videos interessant. Auch Audioaufnahmen sind möglich. Schließlich können über GPS-Positionen Lernspiele in einer Umgebung erstellt und gespielt werden. Als Medium in Lehr- und Lernszenarien können Smartphones auch QR-Codes einlesen, Online-Tools anzeigen und vieles mehr.
+
+! InteraktiveInhalteEditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Computerprogramme für das Erstellen interaktiver Lehr- und Lerninhalte ermöglichen Lernmedien, mit denen selbstständig gelernt werden kann. Typischerweise geben die Lernmedien auch Rückmeldungen an die Lernenden.
+
+
+<<list-links filter:"[tag[InteraktiveInhalteEditor]]+[sort[title]]">>
+
+
+! H5P <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+H5P ist ein sehr vielseitiges Autorenwerkzeug für die Erstellung von interaktiven Online-Inhalten. Es besteht aus verschiedenen Komponenten wie z.B. Kurspräsentation, interaktives Buch, Multiple-Choice-Fragen, Augmented Reality etc. Diese Komponenten können auch ineinander verschachtelt werden, so dass z.B. die Buchseite eines interaktiven Buches Multiple-Choice-Fragen usw. enthält. In diesen Komponenten ist jedoch keine Zusammenarbeit möglich, die Lernenden bearbeiten die Inhalte einzeln.
+
+H5P läuft normalerweise im Webbrowser. Um H5P nutzen zu können, muss es in eine Online-Plattform integriert sein, die der Bildungseinrichtung zur Verfügung steht. Für die gängigen Lerning-Management-Systeme gibt es Plugins, die installiert und aktiviert werden können. Interessant ist aber auch das Programm Lumi: ein eigenständiges Programm, mit dem H5P auch ohne Webbrowser und ohne Online-Plattform bzw. Lernplattform genutzt werden kann. Die Bedienung erfordert eine Einarbeitung für die Lehrenden: Häufig werden formularbasierte Eingabemasken verwendet, deren Ergebnis nicht sofort ersichtlich ist und ausprobiert werden muss.
+
+Für die Lernenden ist die Bedienung deutlich einfacher. Sie können mit allen Endgeräten auf die H5P-Inhalte zugreifen, eine Installation ist nicht erforderlich.
+
+Links ins Internet:
+
+* [[https://h5p.org|https://h5p.org]]
+* [[Lumi-App für H5P|https://app.lumi.education]]
+
+! Quizlet <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Quizlet ist ein Tool zur Erstellung digitaler Karteikarten und eine Plattform, auf der diese Karteikarten genutzt werden können. Es stehen auch Apps für [[Smartphones|Smartphone]] zur Verfügung.
+
+Die Nutzung durch die Lehrenden ist sehr einfach. Das Tool läuft im Webbrowser, eine Registrierung ist erforderlich. In der Basisversion kann das Tool kostenlos genutzt werden. Die Eingabe der Texte auf den Karteikarten erfolgt über einen formularbasierten Editor. Dabei werden die Karteikarten in Sets zusammengefasst. Die Karteikartensets werden über Links in Lehr- und Lernszenarien verwendet.
+
+Lernende können die Karteikarten über ihren Webbrowser nutzen. Vor allem aber können Lernende auch eigene Karteikartensets erstellen und mit anderen Lernenden austauschen.
+
+Links ins Internet:
+
+* [[https://quizlet.com/de|https://quizlet.com/de]]
+
+! Kahoot <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Kahoot ist ein Werkzeug zum Erstellen von Quizzen oder Umfragen und eine Online-Plattform, auf der diese Quizze oder Umfragen durchgeführt werden können. Verschiedene Komponenten können erstellt werden: In einem Quiz suchen die Teilnehmenden die richtige Antwort auf eine Frage, in einem Jumble werden Elemente in eine Reihenfolge gebracht, in einer Umfrage können Meinungen und Ansichten der Teilnehmenden gesammelt werden, etc. Diese Elemente werden immer von mehreren Lernenden gleichzeitig verwendet. Es entsteht ein Wettbewerb zwischen den Teilnehmenden. Typischerweise wird das Tool bei Videokonferenzen oder im Klassenzimmer eingesetzt.
+
+Die Bedienung erfordert eine Einweisung in das Werkzeug durch die Lehrenden. Die Erstellung der Komponenten erfolgt über formularbasierte Eingabemasken. Die Integration in die Lerninfrastruktur einer Schule findet über Links und Codes. Eine Registrierung der Lehrenden ist erforderlich. In der Basisversion ist das Tool kostenlos, für erweiterte Funktionen muss eine Lizenz erworben werden.
+
+Die Bedienung durch die Lernenden ist denkbar einfach: Das Quiz wird über einen einfachen Code aufgerufen. Das Tool läuft auf allen Endgeräten und ist auch für kleine Geräte wie Smartphones geeignet.
+
+Links ins Internet:
+
+* [[https://kahoot.com|https://kahoot.com]]
+
+! LearningApps <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+LearningApps ist ein Autorenwerkzeug zur Erstellung von interaktiven Online-Lerninhalten sowie eine Online-Plattform, über die diese Inhalte angeboten und abgerufen werden können. Es enthält verschiedene Komponenten wie z.B. Zuordnungsaufgaben, Multiple-Choice-Fragen etc. Diese Komponenten können als LearningApps erstellt werden.
+
+Die Bedienung erfordert eine Einarbeitung der Lehrenden. Viele Komponenten werden mit formularbasierten Eingabemasken erstellt, deren Funktion getestet und geübt werden muss. Das Tool ist mit unterschiedlichen Lerninfrastrukturen in den Schulen kompatibel. Typischerweise laufen die Inhalte über die LerningApps-Plattform und können per Link eingebunden werden. Auch der Export einer App als SCORM ist möglich, so dass diese dann in die Lernplattformen eingebunden werden kann. Eine Nutzung ohne schulische Lernplattform ist ebenfalls möglich. Die Plattform ist kostenlos, erfordert aber eine Registrierung.
+
+Lernende können mit allen Endgeräten über einen Webbrowser direkt auf die LearningApps zugreifen. Eine Installation ist nicht erforderlich.
+
+Links ins Internet:
+
+* [[https://learningapps.org|https://learningapps.org]]
+
+Ähnliche Autorenwerkzeuge:
+
+* [[H5P|H5P]]
+
+! OnlineTafelPinnwand <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Es gibt einige Online-Werkzeuge, die die Funktionen von Tafeln, Pinnwänden oder Boards nachahmen und ein synchrones, gemeinsames Arbeit mit mehreren Teilnehmenden ermöglichen. Typischerweise sind diese Werkzeuge auch Plattformen, über die die Tafeln bzw. Pinnwände verfügbar gemacht werden.
+
+
+<<list-links filter:"[tag[OnlineTafelPinnwand]]+[sort[title]]">>
+
+
+! Padlet <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Padlet ist eine kollaborative Online-Pinnwand, auf der Notizen erstellt, sortiert und kommentiert werden können. Es ist sowohl ein Autorenwerkzeug als auch eine Online-Plattform. Es ermöglicht die synchrone Zusammenarbeit von Lehrenden und Lernenden an einer Pinnwand.
+
+Für Lehrende ist das Tool einfach zu bedienen. Die wenigen Grundfunktionen, wie das Erstellen neuer Pinnwände und neuer Notizen auf den Pinnwänden, sind leicht zugänglich. Das Tool lässt sich auch gut über Links in die Lerninfrastruktur der Schulen integrieren. Es läuft im Webbrowser der Lehrenden. Die Pinnwände liegen letztlich auf der Padlet-Plattform. Das Anlegen von Pinnwänden ist in der kostenlosen Version eingeschränkt, ggf. muss ein Account für Lehrende erworben werden.
+
+Lernende können von allen Endgeräten auf Padlet zugreifen, da die Anwendung im Webbrowser läuft. Tatsächlich ist Padlet erstaunlich responsiv, so dass die Anwendung auch auf kleineren Geräten wie Smartphones gut nutzbar ist. Eine Installation ist nicht erforderlich.
+
+Links ins Internet:
+
+* [[https://de.padlet.com|https://de.padlet.com]]
+
+! ConceptBoard <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+ConceptBoard ist eine kollaborative Online-Tafel, auf der Zeichnungen, Texte, Notizen und Dateien erstellt werden können. Als Online-Plattform ermöglicht das Tool die synchrone Zusammenarbeit von Lehrenden und Lernenden an einer Tafel.
+
+Die Bedienung ist für Lehrende sehr einfach: Die Grundfunktionen sind schnell erlernt. Zahlreiche Vorlagen ermöglichen den Einsatz für unterschiedliche Zwecke. Außerdem lässt sich das Tool über Links in die Lerninfrastruktur von Schulen integrieren. Es läuft im Webbrowser der Lehrenden. Die Tafelbilder befinden sich letztlich auf der Online-Plattform. Das Anlegen neuer Tafeln ist in der kostenlosen Version eingeschränkt, ggf. muss ein Account für Lehrende erworben werden.
+
+Lernende können von allen Endgeräten auf ConceptBoard zugreifen, da die Anwendung im Webbrowser läuft. Es ist keine Installation erforderlich, jedoch sind ggf. Apps verfügbar. Die Lernenden können auch Änderungen an den Tafeln vornehmen. Das Erstellen von Tafeln ist in der kostenlosen Version eingeschränkt, ggf. muss ein Account erworben werden.
+
+Links ins Internet:
+
+* [[https://conceptboard.com/de/|https://conceptboard.com/de/]]
+
+! Präsentationseditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Präsentationen sind im Kontext des digital gestützten Lehrens und Lernens nicht nur für die Vermittlung von Wissen durch die Lehrenden interessant. Präsentationen können auch durch die Lernenden erstellt werden. Schließlich ermöglichen die hier skizzierten Autorenwerkzeuge auch das Erstellen von interaktiven und multimedialen Präsentationen, die die Lernenden weitgehend eigenständig rezipieren können.
+
+
+<<list-links filter:"[tag[Präsentationseditor]]+[sort[title]]">>
+
+
+! Prezi <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Prezi ist ein Editor für Präsentationen in einem besonderen Format: Anstatt die Folien zu wechseln, wird in Details einzelner Elemente hinein- und herausgezoomt. So werden alle Folien in einer Gesamtansicht miteinander verbunden. Prezi kann für Präsentationen im Klassenraum verwendet werden, lässt sich aber auch mit Videokonferenzplattformen kombinieren.
+
+Das Tool ist für Lehrende einfach zu bedienen. Die Erstellung von Inhalten erfolgt nach dem [[WYSIWYG|WYSIWYG]]-Prinzip. Das Tool kann vielfältig in die Lerninfrastruktur einer Schule integriert werden, da es sowohl als Online-Tool als auch als eigenständiges Programm verfügbar ist. Die Nutzung in der freien Version ist mit Einschränkungen verbunden, ggf. muss eine Lizenz für Lehrende erworben werden.
+
+Für die Lernenden ist die Bedienung sehr einfach. Die Präsentationen können auf allen Endgeräten betrachtet werden. Für die Lernenden ist keine Installation erforderlich.
+
+Links ins Internet:
+
+* [[https://prezi.com/de/|https://prezi.com/de/]]
+
+! PowerPoint <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+PowerPoint ist ein weit verbreitetes Werkzeug zur Erstellung von Präsentationen und Teil des Microsoft Office-Pakets. Mit PowerPoint werden hauptsächlich folienbasierte Präsentationen erstellt, in die auch multimediale Elemente eingefügt werden können. Das Tool ist ein recht einfach zu bedienender Editor und wird daher auch für Grafiken und Visualisierungen verwendet. Mit der webbasierten Version von Office 365 können Präsentationen auch über das Internet mit einem Link aufgerufen werden. In dieser Version ist auch eine synchrone Bearbeitung durch mehrere Nutzende möglich.
+
+Die Bedienung von PowerPoint ist den meisten Lehrenden vertraut. Der Editor ist nach Folien gegliedert und ermöglicht eine Bearbeitung nach dem [[WYSIWYG|WYSIWYG]]-Prinzip. Der Zugang bzw. die Lizenz für das Tool ist oft bereits mit dem Arbeitsgerät der Lehrenden freigeschaltet. PowerPoint wird typischerweise für Präsentationen im Unterricht eingesetzt. Bei der Integration in die Lehr- und Lerninfrastruktur von Schulen ist es oft wichtig, dass das PowerPoint-Dateiformat auf den Geräten geöffnet und angezeigt werden kann. Dazu wird eine Version von PowerPoint benötigt. Auf Smartboards kann die Anwendung installiert sein. Alternativ können Präsentationen auch in anderen Formaten exportiert werden: Hier ist das PDF-Format interessant, da es auf vielen Geräten ohne weitere Hilfsmittel geöffnet werden kann. Allerdings unterstützt PDF keine multimedialen Elemente. Die Einbindung in Lernplattformen erfolgt in der Regel als Datei.
+
+Lernende benötigen in der Regel eine Version des Programms auf ihrem Endgerät, um diese Präsentationen betrachten zu können. Für mobile Endgeräte steht eine PowerPoint zur Verfügung. Mit Office 365 kann PowerPoint auch für webbasierte Präsentationen verwendet werden, für die keine Installation auf den Endgeräten erforderlich ist. Damit Lernende eigene Präsentationen erstellen können, ist eine Lizenz erforderlich.
+
+Links ins Internet:
+
+* [[https://www.microsoft.com/de-DE/microsoft-365/powerpoint|https://www.microsoft.com/de-DE/microsoft-365/powerpoint]]
+
+! LibreofficeImpress <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Libreoffice Impress ist ein Editor für Präsentationen und Teil des freien Office-Pakets Libreoffice. Mit Impress werden hauptsächlich Folienpräsentationen erstellt, es können aber auch multimediale Elemente eingebunden werden. Das Tool ist relativ einfach zu bedienen und wird daher auch für Grafiken und Visualisierungen verwendet. Es ist mit [[PowerPoint|PowerPoint]] kompatibel, so dass Präsentationen im PowerPoint-Format gespeichert und geöffnet werden können.
+
+Das Tool ist für Lehrende sehr einfach und ähnlich wie PowerPoint zu bedienen. Der Editor ist nach Folien gegliedert und ermöglicht die Bearbeitung nach dem [[WYSIWYG|WYSIWYG]]-Prinzip. Das Programm ist lizenzfrei, muss aber auf den Arbeitsgeräten der Lehrenden installiert werden. Für die Integration in die Lehr- und Lerninfrastruktur der Schulen ist es wichtig, dass die Präsentationen auf den Geräten geöffnet und angezeigt werden können. Dies kann über die PowerPoint-Applikation erfolgen. Alternativ können Präsentationen auch in andere Formate exportiert werden: Hier bietet sich das PDF-Format an, da es auf vielen Geräten ohne weitere Hilfsmittel geöffnet werden kann. Allerdings unterstützt PDF keine multimedialen Elemente. Die Einbindung in Lernplattformen erfolgt in der Regel als Datei.
+
+Die Lernenden benötigen in der Regel eine Version des Programms auf ihrem Endgerät, um diese Präsentationen betrachten zu können, wenn diese im Impress-Format vorliegt. Da das Programm kostenlos genutzt werden kann, muss es lediglich auf dem Endgerät installiert werden. Für mobile Endgeräte steht keine App zur Verfügung, so dass der Export der Präsentation als PDF oder PowerPoint empfohlen wird.
+
+Links im Internet:
+
+* [[https://de.libreoffice.org/discover/impress/|https://de.libreoffice.org/discover/impress/]]
+
+! GooglePresentation <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Google Presentation ist ein Editor für folienbasierte Präsentationen sowie eine Online-Plattform, auf der diese Präsentationen gezeigt und abgerufen werden können. Zusammen mit Google Docs gehört es zum Office-Paket von Google. Das Tool ist relativ einfach zu bedienen und kann auch für Grafiken oder Visualisierungen verwendet werden. Es läuft über den Webbrowser und erlaubt auch die synchrone Bearbeitung durch mehrere Nutzer/innen.
+
+Die Bedienung des Tools ist recht einfach und orientiert sich an anderen Präsentationsprogrammen. Der Editor ist folienbasiert aufgebaut und ermöglicht eine Bearbeitung nach dem [[WYSIWYG|WYSIWYG]]-Prinzip. Benötigt wird ein Google-Account, der kostenlos eingerichtet werden kann. Die Integration in die Lehr- und Lerninfrastruktur der Schule erfolgt über den Webbrowser. Durch Verlinkung der Präsentationen können diese auch auf Lernplattformen eingebunden werden. Ein Export in andere Dateiformate wie Powerpoint oder PDF ist ebenfalls möglich. Bei PDF-Dateien werden allerdings keine multimedialen Elemente unterstützt.
+
+Da Google Presentation auf Online-Präsentationen ausgerichtet ist, können Lernende diese in der Regel auf allen Endgeräten betrachten. Die Installation einer zusätzlichen App ist oftmals nicht notwendig, Apps stehen jedoch zur Verfügung. Die Lernenden können die Präsentationen auch synchron bearbeiten, wenn bei der Freigabe die entsprechenden Rechte ausgewählt wurden.
+
+Links im Internet
+
+* [[https://docs.google.com/presentation|https://docs.google.com/presentation]]
+
+! LearningManagementSystem <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Als Learning-Management-System werden Online-Plattformen bezeichnet, über die webbasierten Lehr- und Lernszenarien durchgeführt werden können. Die Plattformen beinhalten auch Autorenwerkzeuge mit denen Inhalte und Lernmedien erstellt werden können.
+
+
+<<list-links filter:"[tag[LearningManagementSystem]]+[sort[title]]">>
+
+
+! Moodle <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Moodle ist sowohl eine Plattform als auch ein Editor zur Erstellung verschiedener Lernressourcen und -aktivitäten. Als Online-Plattform muss Moodle für eine Bildungseinrichtung installiert und gehostet werden. Der Editor wird dann von der Plattform aus aufgerufen. Erstellte Materialien können exportiert und importiert und so zwischen mehreren Moodle-Installationen ausgetauscht werden.
+
+Die Bedienung von Moodle ist für Lehrende gewöhnungsbedürftig, eröffnet aber die Nutzung eines vielseitigen Editors. An vielen Stellen sind formularbasierte Eingabemasken vorgesehen, deren Funktionalität erprobt bzw. geübt werden muss. Die Integration in die Lehr- und Lerninfrastruktur einer Schule erfordert auch die Einrichtung von Zugängen für Lehrende und Lernende sowie die Gestaltung von Rollen und Rechten dieser Nutzer/innen. Das Tool erlaubt eine sehr flexible Anpassung der Rechte für Rollen. Ansonsten wird Moodle über den Webbrowser aufgerufen und läuft somit auf allen Endgeräten der Lehrenden, auch auf Smartboards etc.
+
+Moodle kann von den Lernenden auf allen Endgeräten über einen Webbrowser aufgerufen werden. Zusätzlich steht eine App für mobile Endgeräte zur Verfügung, die jedoch nicht von allen Moodle-Installationen unterstützt wird. Wie genau die Lernenden die Plattform nutzen können, wird häufig von den Lehrenden im Kursdesign festgelegt.
+
+Links ins Internet:
+
+* [[https://moodle.org|https://moodle.org]]
+
+! Ilias <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ilias ist sowohl eine Plattform als auch ein Editor zur Erstellung verschiedener Lernressourcen und -aktivitäten. Als Online-Plattform muss Ilias für eine Bildungseinrichtung installiert und gehostet werden. Der Editor wird dann über die Plattform aufgerufen. Erstellte Materialien können innerhalb der Plattform positioniert werden. Aber auch das Exportieren und Importieren von Materialien zwischen mehreren Ilias-Installationen ist möglich.
+
+Die Bedienung von Ilias erfordert von den Lehrenden eine Einarbeitung, eröffnet aber die Nutzung eines vielseitigen Editors. An vielen Stellen sind formularbasierte Eingabemasken vorgesehen, deren Funktionalität geübt werden muss. Die Integration in die Lehr- und Lerninfrastruktur einer Schule erfordert auch die Einrichtung von Zugängen für Lehrende und Lernende sowie die Gestaltung von Rollen und Rechten dieser Nutzer/innen. Das Tool erlaubt eine sehr flexible Anpassung der Rechte für Rollen. Ansonsten wird Ilias über den Webbrowser aufgerufen und läuft somit auf allen Endgeräten der Lehrenden, auch auf Smartboards etc.
+
+Ilias kann von den Lernenden auf allen Endgeräten über einen Webbrowser aufgerufen werden. Die genaue Art und Weise, wie die Lernenden die Plattform nutzen können, wird häufig von den Lehrenden im Kursdesign festgelegt.
+
+Links ins Internet:
+
+* [[https://www.ilias.de|https://www.ilias.de]]
+
+! AudioVideoEditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Autorensysteme für das Erstellen und Bearbeiten von Audio- und/oder Videoaufzeichnen sind für die Gestaltung von Lernmedien hilfreich. Die Aufzeichnungen können z.B. im Rahmen von interaktiven Inhalten oder Präsentationen verwendet werden.
+
+
+<<list-links filter:"[tag[AudioVideoEditor]]+[sort[title]]">>
+
+
+! Camtasia <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Camtasia ist ein fortgeschrittenes Authoring-Tool zur Erstellung von Lehr- und Lernvideos sowie zur Bearbeitung von Filmen. Die Aufnahmen können direkt im Programm erstellt werden, es ist aber auch möglich, Aufnahmen von einem Smartphone einzubinden. Der Editor lässt sich gut mit einem [[Präsentationsprogramm|Präsentationsprogramm]] kombiniert werden. Er ermöglicht auch interaktive Elemente in den Videos und kann die Resultate in vielen Formaten exportieren.
+
+Nach dem Erwerb einer Lizenz kann der Editor auf einem Computer installiert und genutzt werden. Nach der Erstellung des Videos erfolgt in der Regel ein Export. Die Lehr- und Lernvideos werden dann z.B. in die Lernplattform der Schule importiert. Auch die Einbindung solcher Videos in interaktive Präsentationen ist möglich. Der Umgang mit Autorenwerkzeugen zur Erstellung und Bearbeitung von Videos erfordert eine Einarbeitung.
+
+Die Lernenden können die Videos auf allen Endgeräten abspielen, sofern nutzbare Dateiformate für den Export verwendet wurden (z.B. MP4). Die Bedienung eines Lernvideos ist in der Regel sehr einfach.
+
+Links ins Internet:
+
+* [[https://www.techsmith.de/camtasia.html|https://www.techsmith.de/camtasia.html]]
+
+! SimpleShow <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+SimpleShow ist ein Tool zur Erstellung von einfachen Erklärvideos und eine Online-Plattform, auf der die Videos angesehen werden können. Das Tool arbeitet mit Vorlagen, die angepasst und ergänzt werden können, z.B. um eine Krankheit oder einen biologischen Prozess zu erklären. Außerdem gibt es eine Datenbank mit Grafiken, die neben eigenen Grafiken für die Animation der Videos verwendet werden können.
+
+Die Bedienung für Lehrende ist gewöhnungsbedürftig. Die Erstellung von Videos ist grundsätzlich recht komplex, aber dieses Tool ist ein gutes Hilfsmittel dafür. Das Tool läuft im Webbrowser. Die Integration in die Lerninfrastruktur einer Schule erfolgt z.B. über Links. Die Videos können aber auch heruntergeladen und in andere Plattformen eingebunden werden. In einer kostenlosen Version sind Basisfunktionen für Lehrende nutzbar, hierfür ist eine Registrierung erforderlich. Für weitere Funktionen muss eine Lizenz erworben werden.
+
+Die Videos sind für die Lernenden in der Regel auf allen Geräten nutzbar.
+
+Links ins Internet:
+
+* [[https://simpleshow.com/de/|https://simpleshow.com/de/]]
+
+! Audacity <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Audacity ist ein kostenloses Programm zur Erstellung und Bearbeitung von Audiodateien. Aufnahmen können direkt mit dem Programm erstellt werden, aber auch der Import von Aufnahmen z.B. von Smartphones ist möglich. Das Tool verfügt über zahlreiche Funktionen und ermöglicht beispielsweise das Abmischen und Zusammenstellen von Podcasts.
+
+Das Programm ist frei verfügbar und muss auf einem Computer installiert werden. Die fertigen Audio-Dateien werden exportiert. Sie können dann z.B. in die Lernplattform einer Schule importiert werden. Auch die Einbindung solcher Aufzeichnungen in interaktive Präsentationen ist möglich.
+
+Die Nutzung der Aufzeichnungen durch die Lernenden ist einfach und erfolgt auf allen digitalen Endgeräten, sofern ein nutzbares Exportformat (z.B. MP3) gewählt wurde. Darüber hinaus können die Lernenden das Programm auch nutzen, um eigene Aufzeichnungen oder Podcasts zu erstellen.
+
+Links ins Internet:
+
+* [[https://www.audacityteam.org|https://www.audacityteam.org]]
+
+! GrafikEditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Editoren für die Erstellung von Grafiken, Visualisierungen oder Zeichnungen sind im didaktischen Kontext gewinnbringend, da sie neben der textuellen Kodierung von Informationen auch eine visuelle Darstellung von Zusammenhängen und Themen ermöglichen.
+
+
+<<list-links filter:"[tag[GrafikEditor]]+[sort[title]]">>
+
+
+! Cmap <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Cmap ist ein Autorenwerkzeug zur Erstellung von Concept Maps, die als Visualisierungen für Lehr- und Lernszenarien verwendet werden. Es handelt sich dabei um Netzwerkdarstellungen, die Texte, Bilder, Links oder Notizen etc. beinhalten können. Das Programm unterstützt sowohl den textuellen Import von Konzepten und Verknüpfungen als auch die automatische Generierung eines Layouts für die Darstellung.
+
+Das Programm wird auf einem Rechner installiert. Eine rudimentäre Anwendung als App für IOS ist ebenfalls verfügbar. Die fertigen Visualisierungen werden exportiert und können vielfältig weiterverwendet werden, z.B. in Präsentationen oder auf der Lernplattform der Bildungseinrichtung. Die Nutzung des Programms, insbesondere der Spezialfunktionen, erfordert eine Einarbeitung.
+
+Die Lernenden verwenden die Concept Maps in den Lehrmaterialien oder separat als Export. Je nach Export- bzw. Präsentationsformat können sie auf allen Endgeräten geöffnet und genutzt werden. Bei Bedarf können die Lernenden das Tool auch selbst installieren und für eigene Concept Maps nutzen.
+
+Links ins Internet:
+
+* [[https://cmap.ihmc.us|https://cmap.ihmc.us]]
+
+! MindMeister <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+MindMeister ist eine Software zur Erstellung von Mind Maps. Mind Maps bestehen aus Ästen, Knoten und Unterästen, die oft hierarchisch strukturiert sind. Sie können Texte, Bilder, Links und Notizen enthalten und visualisieren so Ideen, Informationen, Zusammenhänge und Konzepte. Das Autorentool ist ein Online-Tool und kann auch kollaborativ mit mehreren Teilnehmenden genutzt werden.
+
+Lehrende benötigen einen Zugang zum Online-Tool. Eine kostenlose Registrierung und Nutzung ist möglich, für weitere Funktionen muss ein Account erworben werden. Die Integration des Tools in die Lehr- und Lerninfrastruktur erfolgt z.B. durch eine Verlinkung auf die Maps für die Zusammenarbeit mit den Lernenden. Ein Export der Visualisierung ist ebenfalls möglich.
+
+Die Lernenden können die Visualisierung mit ihren digitalen Endgeräten betrachten und daran teilnehmen. Oft ist ein größerer Bildschirm, wie z.B. ein Tablet, hilfreich, da die Grafiken oft sehr groß werden.
+
+Links ins Internet:
+
+* [[https://www.mindmeister.com/de|https://www.mindmeister.com/de]]
+
+! DrawIO <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+draw.io ist ein einfaches und nützliches Zeichenprogramm für Diagramme und Abbildungen in vielen Formaten. Es läuft im Webbrowser oder kann als eigenständiges Programm für den Desktop heruntergeladen und installiert werden. Es ist jedoch kein typisches Online-Tool, da die Grafik immer lokal erstellt und gespeichert wird.
+
+Die Bedienung des Tools ist relativ einfach. Es fallen keine Lizenzgebühren an. Das Programm kann auch ohne Installation auf einem Rechner genutzt werden. Die Integration in die Lehr- und Lerninfrastruktur einer Schule erfolgt über den Export der Grafiken. Diese können dann in anderen Autorenwerkzeugen oder Plattformen weiterverwendet werden.
+
+Das Tool kann von den Lernenden auch sehr gut auf verschiedenen digitalen Geräten genutzt werden. Da die Grafiken oft sehr groß sind, ist ein größerer Bildschirm, z.B. ein Tablet, hilfreich.
+
+Links ins Internet:
+
+* [[https://www.drawio.com|https://www.drawio.com]]
+
+! Texteditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Computerprogramme zum Erstellen von Texten sowie vielfältigen Textdokumenten sind nicht nur in der beruflichen Praxis wichtige Autorenwerkzeuge. Sie ermöglichen auch das Erstellen von Lehr- und Lernmedien und können im Kontext von Bildungsszenarien eingesetzt werden.
+
+
+<<list-links filter:"[tag[Texteditor]]+[sort[title]]">>
+
+
+! Zettlr <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Zettlr ist ein Editor, Textverarbeitungs- und Notizverwaltungssystem, das mit Markdown-Code arbeitet. Es arbeitet nicht nach dem [[WYSIWYG|WYSIWYG]]-Prinzip und ist auf die Erstellung vielfältiger Ausgabeformate wie etwa Präsentationen, Webseiten, Notizen etc. ausgerichtet, die auch im HTML-Format ausgegeben und weiterverwendet werden können.
+
+Die Integration von Zettlr in die Lehr- und Lerninfrastruktur einer Schule erfolgt über den Export der Dokumente in verschiedene Formate. Das Tool selbst muss auf einem Rechner installiert werden. Besonders interessant für den Export sind Online-Formate wie Webseiten oder reveal.js-Präsentationen. Beide Formate basieren auf HTML und können als Lernmodule in Lernplattformen importiert werden. Darüber hinaus kann Zettlr auch für persönliche Notizen im Kontext der Erstellung von Unterrichtskonzepten verwendet werden. Damit schlägt das Tool eine Brücke zwischen der Konzeption von Unterricht und der Erstellung geeigneter Lehr- und Lernmedien. Für die Nutzung ist allerdings eine Einarbeitung erforderlich, da das Programm mit Softwarekonzepten arbeitet, die in der alltäglich verwendeten Software oft wenig verbreitet sind.
+
+Die Lernenden können die Exporte auf allen Endgeräten nutzen, sofern diese HTML-basiert sind. In der Regel sind sie den Lernenden über die Lernplattformen zugänglich.
+
+Links ins Internet:
+
+* [[https://www.zettlr.com|https://www.zettlr.com]]
+
+! GoogleDocs <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+GoogleDocs ist ein Online-Textverarbeitungsprogramm, mit dem gemeinsam und synchron an einem Textdokument gearbeitet werden kann. Es arbeitet nach dem [[WYSIWYG|WYSIWYG]]-Prinzip.
+
+Die Nutzung des Tools durch Lehrende ist einfach, erfordert aber einen Google-Account. Die Integration der Dokumente in die Lehr- und Lerninfrastruktur erfolgt z.B. über Links. Dokumente können auch exportiert und als Datei zur Verfügung gestellt werden. GoogleDocs eignet sich sowohl für die Erstellung von Lehr- und Lernmedien durch die Lehrenden als auch für die Zusammenarbeit der Lehrenden untereinander oder mit den Lernenden.
+
+Die Lernenden können das Tool auf allen Endgeräten nutzen, ergänzend stehen Apps für Tablets und Smartphones zur Verfügung. Für die Bearbeitung eines Textes ist jedoch ein größerer Bildschirm hilfreich, wie er etwa bei einem Tablet zur Verfügung steht.
+
+Links ins Internet:
+
+* [[https://docs.google.com|https://docs.google.com]]
+
+! Etherpad <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Etherpad ist ein sehr einfaches kollaboratives Online-Textverarbeitungssystem, mit dem mehrere Benutzer/innen synchron an einem Textdokument arbeiten können. Das Tool speichert den Bearbeitungsverlauf und ermöglicht es, ältere Versionen eines Dokuments wiederherzustellen. Es handelt sich um ein Open-Source-Tool, welches als Server verfügbar gemacht wird. Im Netz gibt es daher mehrere Etherpad-Server, die frei genutzt werden können.
+
+Der Einstieg in Etherpad ist sehr einfach. Eine Integration in die Lehr- und Lerninfrastruktur einer Schule kann über die Lernplattform erfolgen: Manche Learning-Management-Systeme bringen einen eigenen Etherpad-Server mit. Auch Dokumente auf externen Etherpad-Servern können über einen Link eingebunden werden.
+
+Lernende können das Tool auf vielen Endgeräten nutzen, da es über den Webbrowser läuft. Besonders interessant für die Erstellung von Texten sind jedoch Geräte mit größeren Bildschirmen, die auch über eine Tastatur verfügen. Ein weiterer interessanter Aspekt des Tools ist, dass die Lernenden selbst Etherpads erstellen und diese im Lern- und Arbeitskontext vielfältig einsetzen können.
+
+Links ins Internet:
+
+* [[https://etherpad.org|https://etherpad.org]]
+* Freier Etherpad-Server der Zentrale für Unterrichtsmedien im Internet eV.: [[https://pad.zum.de|https://pad.zum.de]]
+
+! Sway <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Sway von Microsoft ist ein webbasiertes Storytelling-Tool und eine Plattform, um diese Inhalte zugänglich zu machen. Es ermöglicht die Erstellung von interaktiven und multimedialen Geschichten als Online-Inhalte. Es bietet Designvorlagen und Layouts, um die Inhalte ansprechend zu gestalten. Letztlich handelt es sich um ein Online-Werkzeug.
+
+Es ist für Lehrende relativ einfach zu benutzen. Das Programm ist oft schon in vielen Einrichtungen mit einer Office-365-Lizenz vorhanden. Es können auch [[PowerPoint-Präsentationen|PowerPoint]] importiert und in Stories umgewandelt werden. Die Einbindung in Lehr- und Lernangebote erfolgt häufig durch Verlinkung der Inhalte.
+
+Die Lernenden können die Stories ohne weitere Installationen oder Lizenzen auf allen Endgeräten ansehen und abspielen. Dabei werden die Inhalte im Webbrowser dargestellt. Je nach Konfiguration ist auch das gemeinsame Erstellen von Stories über Sway für die Lernenden möglich.
+
+Links ins Internet:
+
+* [[https://sway.office.com|https://sway.office.com]]
+
+! Word <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Word ist ein weit verbreitetes Textverarbeitungssystem und damit auch ein Texteditor, der nach dem [[WYSIWYG|WYSIWYG]]-Prinzip arbeitet. Es wird typischerweise zur Erstellung von seitenbasierten und druckbaren Texten verwendet. Es ist häufig auf Computern vorinstalliert. Word kann aber auch als Online-Werkzeug im Webbrowser verwendet werden.
+
+Die Verwendung von Texteditoren wie Word ist weit verbreitet und in der Regel bekannt. Das Tool ist häufig in der Lehr- und Lerninfrastruktur von Schulen vorinstalliert und nutzbar. Es wird von Lehrenden oft zur Erstellung von druckbaren Lernmedien wie Arbeitsblättern oder Lernaufgaben verwendet. Der Text kann den Lernenden aber auch als digitales Dokument, z.B. im PDF-Format, zur Verfügung gestellt werden.
+
+Nicht immer steht den Lernenden eine Vollversion des Editors zur Verfügung, z.B. wenn keine Lizenz zur Verfügung gestellt wird oder eine eingeschränkte Version z.B. als App auf einem Tablet genutzt wird. Dennoch ist die Beschäftigung mit diesem weit verbreiteten Editor wichtig für die berufliche Medienbildung.
+
+! GameEditor <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Ein Game-Editor ist ein Programm zum Erstellen von Computerspielen.
+
+
+<<list-links filter:"[tag[GameEditor]]+[sort[title]]">>
+
+
+! Scratch <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Scratch ist ein Editor für Spiele und Multimedia-Anwendungen sowie eine Online-Plattform, auf der diese Spiele ausgeführt werden. Dabei verwendet Scratch eine visuelle Programmiermethode und ermöglicht so die einfache Erstellung von Computerspielen ohne Programmcode.
+
+Scratch erfordert von den Lehrenden eine Einarbeitung. Dabei steht weniger das Erlernen einer spezifischen Programmiersprache im Vordergrund als vielmehr die Anwendung von Programmierkonzepten wie Schleifen, Bedingungen, Variablen etc. Scratch ist kostenlos und kann als Plattform in die Lehr- und Lerninfrastruktur einer Schule integriert werden. Für die Erstellung von Spielen ist ein Account erforderlich.
+
+Die Spiele auf Scratch können von den Lernenden im Webbrowser aufgerufen werden. Es stehen auch Apps zur Verfügung.
+
+Links ins Internet:
+
+* [[https://scratch.mit.edu|https://scratch.mit.edu]]
+
+! Minecraft <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Minecraft ist ein dreidimensionales Videospiel, mit dem Umgebungen kreativ erkundet und gestaltet werden können. In Minecraft können die Nutzerinnen und Nutzer Blöcke platzieren und mit ihnen interagieren, um Räume und Umgebungen zu schaffen und sich darin zu bewegen. Die Spielwelten in Minecraft bestehen also aus Blöcken. Für den Lehr- und Lernkontext gibt es mit Minecraft Education eine Version des Videospiels für Schulen. Sie ermöglicht das gemeinsame Spielen in virtuellen Welten.
+
+Das Tool ist auch ein Autorensystem, denn in Minecraft als Editor können auch Umgebungen erstellt und aufgebaut werden. Für den Einsatz im Kontext der Lehr- und Lerninfrastrukturen von Schulen muss das Tool lizenziert und auf Rechnern installiert werden. Das Erstellen eigener Welten erfordert eine gewisse Einarbeitungszeit.
+
+Die Lernenden müssen Minecraft auf ihren Geräten installiert haben. Für Smartphones und Tablets gibt es eigene Minecraft Education App. Auch das Navigieren im Spiel aus der Ego-Perspektive muss geübt werden.
+
+Links ins Internet:
+
+* [[https://education.minecraft.net/de-de|https://education.minecraft.net/de-de]]
+
+! VideokonferenzPlattform <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Die Durchführung von synchronen Videokonferenzen im Kontext von Lehr- und Lernszenarien erfordert eine spezielle Plattform. Diese übernimmt die Zusammenführung mehrerer Audio- und Videosignale der einzelnen Teilnehmenden in einem Videokonferenzraum. Typische Funktionen solcher Plattformen sind z.B. das Teilen von Präsentationen, Bildschirmen sowie Breakout-Räumen.
+
+
+<<list-links filter:"[tag[VideokonferenzPlattform]]+[sort[title]]">>
+
+
+! Teams <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Teams von Microsoft ist eine Plattform für die Zusammenarbeit in Teams und Gruppen. Die Plattform unterstützt Chat, Notizen, Dateien und andere Anwendungen. Häufig wird Teams auch wegen der integrierten Videokonferenzfunktion genutzt. Teams können auch Klassen oder Lerngruppen sein.
+
+Lehrende benötigen Accounts, um das Tool nutzen zu können. Um die Plattform im Rahmen der schulischen Lehr- und Lerninfrastruktur verwenden zu können, ist daher eine Lizenzierung erforderlich. Dazu wird das Tool entweder auf den Rechnern installiert oder als Online-Tool genutzt. Es stehen auch Apps zur Verfügung.
+
+Die Lernenden können in der Regel mit allen Endgeräten auf Teams zugreifen. Sie benötigen jedoch einen Account, um auf die Plattform zugreifen zu können. Das Programm läuft im Webbrowser und ist auch als App erhältlich.
+
+Links ins Internet:
+
+* [[https://www.microsoft.com/de-de/microsoft-teams/|https://www.microsoft.com/de-de/microsoft-teams/]]
+
+! Zoom <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Zoom ist eine populäre Plattform für synchrone Videokonferenzen. Sie bietet Funktionen wie Breakout-Räume und Warteräume für die Teilnehmenden. Präsentationen können ebenso geteilt werden wie der Bildschirm eines Teilnehmenden.
+
+Die Nutzung der Plattform und insbesondere der erweiterten Funktionen im Kontext von Lehr- und Lernszenarien erfordert eine Einarbeitung. Die Installation eines Clients auf dem Rechner der Lehrenden ist ebenso erforderlich wie ein Account. Die Videokonferenzräume werden über Links zur Verfügung gestellt.
+
+Die Lernenden können von jedem Endgerät aus auf Zoom zugreifen. Dazu kann das Tool über den Webbrowser genutzt werden, aber auch die Installation einer App aus dem Play Store oder App Store ist möglich. Auch hier benötigen die Lernenden einen Account.
+
+Links ins Internet:
+
+* [[https://explore.zoom.us/de/products/meetings/|https://explore.zoom.us/de/products/meetings/]]
+
+! BigBlueButton <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+BigBlueButton ist eine webbasierte Plattform für synchrone Videokonferenzen. Das Tool bietet Funktionen wie das Teilen einer Präsentation, eines Bildschirms oder auch Breakout-Räume.
+
+Die Nutzung insbesondere der erweiterten Funktionen im Kontext von Lehr- und Lernszenarien erfordert eine Einarbeitung. Die Einbindung der Plattform in die schulische Lehr- und Lerninfrastruktur erfolgt häufig über ein Learning-Management-System, in das die Plattform integriert ist.
+
+Die Lernenden können BigBlueButton über einen Webbrowser von vielen Endgeräten aus nutzen. Eine App ist nicht verfügbar. Da das System über die Lernplattform aufgerufen wird, ist keine separate Anmeldung oder Registrierung erforderlich.
+
+Links ins Internet:
+
+* [[https://bigbluebutton.org|https://bigbluebutton.org]]
+
+! Webex <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Webex von Cisco ist eine Plattform für synchrone Videokonferenzen. Das Tool bietet Funktionen wie etwa das Teilen einer Präsentation, eines Bildschirms oder auch Breakout-Räume.
+
+Die Nutzung insbesondere auch der erweiterten Funktionen im Kontext von Lehr- und Lernszenarien erfordert eine Einarbeitung. Die Installation eines Clients auf den Rechnern der Lehrenden wird empfohlen, ist aber nicht zwingend erforderlich, da es sich bei Webex um ein Online-Tool handelt. Für die Nutzung ist ein Account erforderlich. Die Integration in die Lehr- und Lerninfrastruktur einer Schule erfolgt als eigenständige Plattform. Die Videokonferenzräume werden über Links zur Verfügung gestellt.
+
+Die Lernenden können von jedem Endgeräten aus auf Webex zugreifen. Dazu wird die Installation der App empfohlen. Für die Nutzung ist kein Account erforderlich.
+
+Links ins Internet:
+
+* [[https://www.webex.com/de/index.html|https://www.webex.com/de/index.html]]
+
+! Lernplattform <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Neben Learning-Management-Systemen sind noch weitere Plattformen für den Einsatz im Kontext digital unterstützter Lehr- und Lernszenarien interessant.
+
+
+<<list-links filter:"[tag[Lernplattform]]+[sort[title]]">>
+
+
+! Mahara <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Mahara ist eine E-Portfolio-Plattform, auf der Lernende ihren Lernprozess dokumentieren, reflektieren und mit anderen Lernenden teilen können.
+
+Mahara muss als Open-Source-Tool für eine Bildungseinrichtung installiert und gehostet werden. So wird es als eigene Plattform zum Teil der schulischen Lehr- und Lerninfrastruktur. Lehrende erhalten dann einen Zugang zur Mahara-Plattform der Schule.
+
+Auch Lernende erhalten ebenfalls einen Zugang zur Mahara-Plattform der Schule und können dort eigene Portfolios erstellen, diese mit anderen Lernenden teilen und Bolgs führen. Je nach Konfiguration sind auch öffentliche Portfolios möglich.
+
+Links ins Internet:
+
+* [[https://mahara.org|https://mahara.org]]
+
+! Wordpress <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Wordpress ist eine Online-Plattform für Weblogs. Lernende können hier ihre eigenes, meist öffentliches Weblog führen. Die Plattform muss für eine Bildungseinrichtung installiert und gehostet werden.
+
+Links ins Internet:
+
+* [[https://wordpress.org|https://wordpress.org]]
+* Erstellen eines eigenen auch kostenfreien Weblogs mit Wordpress: [[https://wordpress.com/de/create-blog/|https://wordpress.com/de/create-blog/]]
+
+! MediaWiki <span class="tag" tag-name="pandoc"><span style="font-variant: small-caps;">pandoc</span></span>
+
+Bei MediaWiki handelt es sich um eine Online-Plattform für Wikis, mit der auch die Wikipedia realisiert wurde. Lernende können Wiki-Seiten erstellen und gemeinsam bearbeiten. Die Plattform muss für eine Bildungseinrichtung installiert und gehostet werden.
+
+Links ins Internet:
+
+* [[https://www.mediawiki.org/wiki/MediaWiki|https://www.mediawiki.org/wiki/MediaWiki]]

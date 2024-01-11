@@ -1,0 +1,13 @@
+title: Autorenwerkzeug
+caption: Autorenwerkzeuge
+tags: Inhaltsverzeichnis
+weight: 4
+
+[img  class="drop" [|Media/Icons/pencil.svg]]
+
+
+Ein Autorenwerkzeug für Lernmedien ist ein Computerprogramm, mit dem Lernmedien unterschiedlicher Typen erstellt werden können. Damit ist eine ganze Bandbreite von Programmen angesprochen, deren Bedienung und Nutzung eine wichtige Voraussetzung für die Gestaltung digital unterstützter Lernszenarien darstellt.<teaser />
+
+In diesem Lernmedien-Planer sind folgende Kategorien für Autorenwerkzeuge eingetragen:
+
+<<list-links filter:"[tag[Autorenwerkzeug]]+[sort[title]]">>

@@ -1,0 +1,10 @@
+title: Design von Lernmedien
+tags: [[Lehren und Lernen mit Medien]]
+
+Modelle des Instruktionsdesigns schematisieren den Prozess bzw. wesentliche Aspekte von Planungs-, Durchführungs- und Evaluationsprozessen für Lehr- und Lernszenarien und nutzen dafür empirische Forschungsergebnisse. Dabei stellen Analyse, Design, Entwicklung, Implementierung und Evaluierung wichtige Phasen aller solcher Modelle dar. Das ADDIE-Modell stellt diese Aspekte als Kreislauf dar, indem jede Analyse gleichsam auch das Design wieder beeinflusst. Lernmedien nehmen einen wichtigen Teil in diesem Prozess ein, bleiben jedoch stets bezogen auf die didaktische Gesamtstrategie des Unterrichts, in dem sie eingesetzt werden.
+
+[img  width="70%;" [Abbildung: ADDIE als typische Phasen des Instruktionsdesigns|Media/Abbildungen/ADDIE.svg]]
+<br />//Abbildung: ADDIE als typische Phasen des Instruktionsdesigns//
+
+
+Der Lernmedien-Planer unterstützt bei Analyse und Design von Lernmedien, indem ein Spektrum möglicher Komponenten aufgezeigt wird, die auf didaktische Zieldimensionen hin fokussiert und zusammengestellt werden können. Die Entwicklung und Implementierung der Lernmedien findet nicht im Lernmedienplaner statt, dieser kann aber als Wiki den Prozess unterstützen und organisieren. Insbesondere werden Hinweise auf Computerprogramme gegeben, mit denen Entwicklung und Implementierung durchgeführt werden können. Schließlich bietet er als Dokumentationsmedium auch einen Ort, an dem Ergebnisse von Analyse und Reflexion festgehalten werden können.

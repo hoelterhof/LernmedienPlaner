@@ -1,0 +1,69 @@
+{
+  "directories": [
+      {
+          "path": "Icons",
+          "filesRegExp": "^.*svg$",
+          "isTiddlerFile": false,
+          "fields": {
+              "title": {"source": "filename-uri-decoded",
+                        "prefix": "Media/Icons/"},
+              "created": {"source": "created"},
+              "modified": {"source": "modified"},
+              "type": "image/svg+xml",
+              "tags": []
+          }
+      },
+      {
+          "path": "Abbildungen",
+          "filesRegExp": "^.*svg$",
+          "isTiddlerFile": false,
+          "fields": {
+              "title": {"source": "filename-uri-decoded",
+                        "prefix": "Media/Abbildungen/"},
+              "created": {"source": "created"},
+              "modified": {"source": "modified"},
+              "type": "image/svg+xml",
+              "tags": []
+          }
+      },
+      {
+          "path": "Screenshots",
+          "filesRegExp": "^.*png$",
+          "isTiddlerFile": false,
+          "fields": {
+              "title": {"source": "filename-uri-decoded",
+                        "prefix": "Media/Screenshots/"},
+              "created": {"source": "created"},
+              "modified": {"source": "modified"},
+              "type": "image/png",
+              "tags": []
+          }
+      },      
+      {
+          "path": "Logos",
+          "filesRegExp": "^.*svg$",
+          "isTiddlerFile": false,
+          "fields": {
+              "title": {"source": "filename-uri-decoded",
+                        "prefix": "Media/Logos/"},
+              "created": {"source": "created"},
+              "modified": {"source": "modified"},
+              "type": "image/svg+xml",
+              "tags": []
+          }
+      },
+     {
+          "path": "Screenshots",
+          "filesRegExp": "^.*jpg$",
+          "isTiddlerFile": false,
+          "fields": {
+              "title": {"source": "filename-uri-decoded",
+                        "prefix": "Media/Screenshots/"},
+              "created": {"source": "created"},
+              "modified": {"source": "modified"},
+              "type": "image/jpeg",
+              "tags": []
+          }
+      }        
+  ]
+}

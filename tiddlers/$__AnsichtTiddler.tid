@@ -1,0 +1,20 @@
+title: $:/core/ui/ViewTemplate/lmp
+tags: $:/tags/ViewTemplate
+
+
+<div class="tc-tiddler-body tc-reveal">
+<$list filter="[all[current]has[Komponententyp]]">
+<$wikify name=Komponententyp text="""{{!!Komponententyp}}""">
+<dl><dt>Komponententyp:</dt><dd><$link to=<<Komponententyp>>>{{!!Komponententyp}}</$link></dd></dl></$wikify>
+</$list><$list filter="[all[current]has[Zieldimensionen]]">
+<dl><dt>Zieldimensionen:</dt><dd>{{!!Zieldimensionen}}</dd></dl>
+</$list>
+<$list filter="[all[current]has[edit]]">
+<p>Dieses Tool kann folgende Komponententypen bearbeiten oder anbieten: <ul><$list filter="[list[!!edit]]" emptyMessage="Für dieses Autorenwerkzeug sind noch keine Komponententypen eingetragen" variable="item"><li><$link to=<<item>>><<item>></$link></li></$list></ul></p>
+</$list>
+<$list filter="[all[current]tag[Komponententyp]]">
+<p>Folgende Autorenwerkzeuge oder Plattformen sind für diesen Komponententyp interessant: <ul><$list filter="[search:edit<currentTiddler>]" emptyMessage="Für diesen Komponententyp sind noch keine Toolseingetragen" variable="item"><li><$link to=<<item>>><<item>></$link></li></$list></ul></p>
+</$list>
+<$list filter="[all[current]!tag[Zieldimension]listed[Zieldimensionen]]" variable="item"><div class="tc-message-box"><p>Dieser Inhalt wird von einer Komponente als Zieldimension angegeben: daher sollte er mit dem Tag <<tag Zieldimension>> versehen sein. Bitte klicken Sie auf <$transclude tiddler="$:/core/ui/Buttons/edit"></$transclude> um dieses Tag hinzuzufügen.</p></div></$list>
+<$list filter="[all[current]has[Komponententyp]!tag[Komponente]]" variable="item"><div class="tc-message-box"><p>Für diesen Inhalt ist ein Komponententyp eingetragen: daher sollte er mit dem Tag <<tag Komponente>> versehen sein. Bitte klicken Sie auf <$transclude tiddler="$:/core/ui/Buttons/edit"></$transclude> um dieses Tag hinzuzufügen.</p></div></$list>
+</div>

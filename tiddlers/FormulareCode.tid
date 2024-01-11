@@ -1,0 +1,6 @@
+title: FormulareCode
+caption: Formulare und Code
+
+Formular- oder codebasierte Editoren besiten im Gegensatz zum WYSIWYG-Prinzip oft zwei Ansichten: eine editierbare Ansicht als Formular mit Eingabemaske oder als Code und eine Ausgabeansicht, die das Endprodukt als Vorschau darstellt. Das Erstellen von Lernmedien mit diesen Editoren erfordert oft eine Einarbeitung: Nutzende benötigen eine Vorstellung vom Endprodukt, ehe die Eingabemaske oder der Code verständlich wird.
+
+Dafür ermöglichen diese Editoren die Erstellung anderer und oft interaktiver und multimedialer Lernmedien. Solche Lernmedien sind etwa Tests oder Quizze, die automatisch Rückmeldungen an die Lernenden geben, wenn ein Antwort nicht den Erwartungen entspricht. Die Komplexität dieser Lernmedien sind oft nicht im Sinne des WYSIWYG-Prinzips bearbeitbar oder nur unter Einschränkung der Funktionalität des Endprodukts. Ein Beispiel für einen solchen Editor ist etwa [[H5P|H5P]].

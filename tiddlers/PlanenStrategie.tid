@@ -1,0 +1,13 @@
+title: PlanenStrategie
+caption: Strategie
+
+!! Didaktische Strategie des Lernmediums
+
+[[Gesamtkonzeption|Gesamtkonzeption]] des Lern- und Lernszenarios, in dem das Lernmedium eingesetzt wird:<br />
+<$list filter='[tag[Strategie]]' variable=item><$radio tiddler="$:/Projekt/Gesamtstrategie" field="text" value=<<item>>> <<item>></$radio><br /></$list>
+
+[[Funktionen|Funktionen von Lernmedien]] des Lernmediums:<br />
+<$list filter='[tag[Funktion]]' variable=item><$checkbox tiddler="$:/Projekt/Funktion" listField="text" checked=<<item>> unchecked=""> <<item>></$checkbox><br /></$list>
+
+Didaktischer Kommentar:<br />
+<$edit-text tiddler="$:/Projekt/DidaktischerKommentar" tag="textarea" default="" placeholder="Bitte beschreiben Sie die didaktische Herangehensweise" class="my-fullwidth"/>

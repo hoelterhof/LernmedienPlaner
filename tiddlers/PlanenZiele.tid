@@ -1,0 +1,24 @@
+title: PlanenZiele
+caption: Ziele
+
+
+\define NeueKompetenz()
+<$action-createtiddler $basetitle="Ziel" $template="VorlageZiel">
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+\end
+
+
+!! Neue Zieldimensionen erstellen
+
+Bitte führen Sie die didaktische Intention des Lernmediums aus, indem Sie hier mehrere Ziele formulieren.
+
+<$button actions=<<NeueKompetenz>>>
+[img[Media/Icons/add-button.svg]] Neues Ziel erstellen
+</$button>
+
+!! Übersicht der Zieldimensionen
+
+
+<$transclude tiddler="LernmediumZieldimensionen" mode="block"/>

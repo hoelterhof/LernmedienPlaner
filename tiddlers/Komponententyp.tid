@@ -1,0 +1,13 @@
+title: Komponententyp
+caption: Komponententypen
+tags: Inhaltsverzeichnis
+weight: 3
+
+[img  class="drop" [|Media/Icons/puzzle.svg]]
+
+
+Oft sind Lernmedien vielfältig: sie setzen sich wie ein Puzzle aus unterschiedlichen Elementen zusammen. Diese Puzzelteile sind hier Komponenten. Komponententypen beschreiben typische Formen solcher Teile, die mit [[Autorenwerkzeugen|Autorenwerkzeug]] erstellt und auf [[Plattformen|Plattform]] angeboten werden können. <teaser />
+
+In diesem Lernmedien-Planer sind folgende Komponententypen eingetragen:
+
+<<list-links filter:"[tag[Komponententyp]]+[sort[title]]">>

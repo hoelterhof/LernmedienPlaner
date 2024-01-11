@@ -1,0 +1,14 @@
+title: H5P
+tags: InteraktiveInhalteEditor OpenSource OnlineTool
+edit: Präsentation Kreuzworträtsel TestQuiz Gamification InteraktiveKarteikarten AugmentedReality BuchLektion Video
+
+H5P ist ein sehr vielseitiges Autorenwerkzeug für die Erstellung von interaktiven Online-Inhalten. Es besteht aus verschiedenen Komponenten wie z.B. Kurspräsentation, interaktives Buch, Multiple-Choice-Fragen, Augmented Reality etc. Diese Komponenten können auch ineinander verschachtelt werden, so dass z.B. die Buchseite eines interaktiven Buches Multiple-Choice-Fragen usw. enthält. In diesen Komponenten ist jedoch keine Zusammenarbeit möglich, die Lernenden bearbeiten die Inhalte einzeln.
+
+H5P läuft normalerweise im Webbrowser. Um H5P nutzen zu können, muss es in eine Online-Plattform integriert sein, die der Bildungseinrichtung zur Verfügung steht. Für die gängigen Lerning-Management-Systeme gibt es Plugins, die installiert und aktiviert werden können. Interessant ist aber auch das Programm Lumi: ein eigenständiges Programm, mit dem H5P auch ohne Webbrowser und ohne Online-Plattform bzw. Lernplattform genutzt werden kann. Die Bedienung erfordert eine Einarbeitung für die Lehrenden: Häufig werden formularbasierte Eingabemasken verwendet, deren Ergebnis nicht sofort ersichtlich ist und ausprobiert werden muss.
+
+Für die Lernenden ist die Bedienung deutlich einfacher. Sie können mit allen Endgeräten auf die H5P-Inhalte zugreifen, eine Installation ist nicht erforderlich.
+
+Links ins Internet:
+
+* [[https://h5p.org|https://h5p.org]]
+* [[Lumi-App für H5P|https://app.lumi.education]]

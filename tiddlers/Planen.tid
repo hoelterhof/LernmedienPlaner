@@ -1,0 +1,9 @@
+title: Planen
+tags: Lernmedien-Planer
+weight: 1
+
+Dieser digitale Assistenz führt Sie in mehreren Schritten durch die Konzeption des Lernmediums. Sie können die Schritte der Reihe nach durcharbeiten oder auch einzelne Schritte überspringen.
+
+
+<br clear="both"/>
+<<tabs "PlanenProjekt PlanenZiele PlanenStrategie PlanenKomponenten" "PlanenProjekt" "$:/state/TabPlanen" "tc-horizontal">>

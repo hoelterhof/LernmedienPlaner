@@ -1,0 +1,16 @@
+title: AnalyseKomponenten
+caption: Komponenten
+
+! Komponenten
+
+
+<p><$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="Für das geplante Lernmedium wurden keine Komponenten angelegt.">Folgende Komponenten sind als Lernmedien geplant:</$list></p>
+
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" variable="comp">
+<p><h2><$link to=<<comp>>><<comp>></$link> (<$transclude tiddler=<<comp>> field="Komponententyp" mode="inline"></$transclude>)</h2></p>
+<p><$transclude tiddler=<<comp>> mode="block"></$transclude></p>
+
+<$list filter="[title<comp>links[]has[modified]]" variable="link"><p><h3><$link to=<<link>>><<link>></$link></h3></p>
+<p><$transclude tiddler=<<link>> mode="block"></$transclude></p></$list>
+
+</$list>

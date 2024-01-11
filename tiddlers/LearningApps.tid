@@ -1,0 +1,17 @@
+title: LearningApps
+tags: InteraktiveInhalteEditor OnlineTool OpenSource
+edit: Kreuzworträtsel TestQuiz
+
+LearningApps ist ein Autorenwerkzeug zur Erstellung von interaktiven Online-Lerninhalten sowie eine Online-Plattform, über die diese Inhalte angeboten und abgerufen werden können. Es enthält verschiedene Komponenten wie z.B. Zuordnungsaufgaben, Multiple-Choice-Fragen etc. Diese Komponenten können als LearningApps erstellt werden.
+
+Die Bedienung erfordert eine Einarbeitung der Lehrenden. Viele Komponenten werden mit formularbasierten Eingabemasken erstellt, deren Funktion getestet und geübt werden muss. Das Tool ist mit unterschiedlichen Lerninfrastrukturen in den Schulen kompatibel. Typischerweise laufen die Inhalte über die LerningApps-Plattform und können per Link eingebunden werden. Auch der Export einer App als SCORM ist möglich, so dass diese dann in die Lernplattformen eingebunden werden kann. Eine Nutzung ohne schulische Lernplattform ist ebenfalls möglich. Die Plattform ist kostenlos, erfordert aber eine Registrierung.
+
+Lernende können mit allen Endgeräten über einen Webbrowser direkt auf die LearningApps zugreifen. Eine Installation ist nicht erforderlich.
+
+Links ins Internet:
+
+* [[https://learningapps.org|https://learningapps.org]]
+
+Ähnliche Autorenwerkzeuge:
+
+* [[H5P|H5P]]

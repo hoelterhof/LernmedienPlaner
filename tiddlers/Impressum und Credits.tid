@@ -1,0 +1,19 @@
+title: Impressum und Credits
+tags: Inhaltsverzeichnis
+weight: 99
+
+Der Lernmedien-Planer ist ein in JavaScript programmiertes Computerprogramm als HTML-Datei. Das Tools wird vollständig offline ausgeführt, d.h. weder werden Daten an einen externen Server übertragen, noch werden Ressourcen nachgeladen. Auch eine Kopie der Schriftart und Icons sind in dieser HTML-Datei enthalten. Sämtliche hier eingegebenen Daten sind also ''nur in diesem Browserfenster'' verfügbar.
+
+Der Lernmedien-Planer ist ein Wiki kann durch die Nutzenden vollständig bearbeitet werden (inklusive dieses Impressums). Die jeweils aktuelle und ursprüngliche Version dieses Wikis kann unter folgender Internetadresse heruntergeladen werden:
+
+* [[https://github.com/hoelterhof/LernmedienPlaner|https://github.com/hoelterhof/LernmedienPlaner]]
+
+In der ursprünglichen und unveränderten Version ist dieses Tool ein Angebot von [[Tobias Hölterhof|https://katho-nrw.de/hoelterhof-tobias-prof-dr]]. Da es sich als kollaboratives Softwareprojekt um Open-Source handelt, können auch andere Personen Kopien und Revisionen anfertigen und diese distribuieren, ohne dass der Autor hierfür verantwortlich ist.
+
+Das Tool basiert auf folgender Software:
+
+* [[TiddlyWiki|https://tiddlywiki.com]] von Jeremy Ruston, lizensiert unter der [[BSD-3 Lizenz|https://tiddlywiki.com]], Version <<version>>
+* Icons von [[OpenMoji|https://openmoji.org]], lizensiert unter [[CC BY-SA 4.0|https://creativecommons.org/licenses/by-sa/4.0/#]]
+* Schriftart [[IBM Plex|https://github.com/IBM/plex]], lizensiert unter [[OFL-1.1|http://scripts.sil.org/OFL]]
+
+Der Lernmedien-Planer wird unter der [[CC BY-SA 4.0-Lizenz|Lizenz]] angeboten. Bitte klicken Sie auf den Link, um eine Kopie der Lizenzvereinbarung einzusehen. Damit wird diese Software ohne Haftung und Gewährleistung angeboten.

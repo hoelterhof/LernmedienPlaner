@@ -1,0 +1,18 @@
+title: Analysieren
+caption: Analysieren
+tags: Lernmedien-Planer
+weight: 2
+
+[img  class="drop" [|Media/Icons/microscope.svg]]
+
+
+Diese Analyse fasst die Planung zusammen und gibt darüber hinaus Hinweise für Erstellung und Umsetzung der Planung.
+
+<br clear="both"/>
+
+<$button>
+[img[Media/Icons/overview.svg]] Report
+<$action-sendmessage $message="tm-open-window" $param="Report" windowTitle="Druckansicht" width="800" height="600" windowID="window1"/>
+</$button>
+
+<<tabs "AnalyseProjekt AnalyseZiele AnalyseStrategie AnalyseKomponenten AnalyseTools" "AnalyseProjekt" "$:/state/TabAnalyse" "tc-vertical">>

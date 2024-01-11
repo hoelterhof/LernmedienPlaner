@@ -1,0 +1,13 @@
+title: Moodle
+tags: LearningManagementSystem OpenSource OnlineTool
+edit: Wiki OnlineForum TestQuiz Glossar Abstimmung Umfrage Lernaufgabe Chat Podcast BuchLektion Weblog EPortfolio Gruppe Fall
+
+Moodle ist sowohl eine Plattform als auch ein Editor zur Erstellung verschiedener Lernressourcen und -aktivitäten. Als Online-Plattform muss Moodle für eine Bildungseinrichtung installiert und gehostet werden. Der Editor wird dann von der Plattform aus aufgerufen. Erstellte Materialien können exportiert und importiert und so zwischen mehreren Moodle-Installationen ausgetauscht werden.
+
+Die Bedienung von Moodle ist für Lehrende gewöhnungsbedürftig, eröffnet aber die Nutzung eines vielseitigen Editors. An vielen Stellen sind formularbasierte Eingabemasken vorgesehen, deren Funktionalität erprobt bzw. geübt werden muss. Die Integration in die Lehr- und Lerninfrastruktur einer Schule erfordert auch die Einrichtung von Zugängen für Lehrende und Lernende sowie die Gestaltung von Rollen und Rechten dieser Nutzer/innen. Das Tool erlaubt eine sehr flexible Anpassung der Rechte für Rollen. Ansonsten wird Moodle über den Webbrowser aufgerufen und läuft somit auf allen Endgeräten der Lehrenden, auch auf Smartboards etc.
+
+Moodle kann von den Lernenden auf allen Endgeräten über einen Webbrowser aufgerufen werden. Zusätzlich steht eine App für mobile Endgeräte zur Verfügung, die jedoch nicht von allen Moodle-Installationen unterstützt wird. Wie genau die Lernenden die Plattform nutzen können, wird häufig von den Lehrenden im Kursdesign festgelegt.
+
+Links ins Internet:
+
+* [[https://moodle.org|https://moodle.org]]

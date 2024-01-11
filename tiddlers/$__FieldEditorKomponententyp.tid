@@ -1,0 +1,4 @@
+title: $:/config/EditTemplateFields/Templates/Komponententyp
+
+
+<$select tiddler=<<currentTiddler>> field='Komponententyp' class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><$list filter='[tag[Komponententyp]]'><option><$view field='title'/></option></$list></$select>

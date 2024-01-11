@@ -1,0 +1,6 @@
+title: Bedienung
+caption: Bedienung
+tags: Lernmedien-Planer
+weight: 98
+
+<<tabs "BedienungEingabemaske BedienungWikiText BedienungSpeichern" "BedienungEingabemaske" "$:/state/TabBedienung" "tc-horizontal">>

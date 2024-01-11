@@ -1,0 +1,10 @@
+title: Einstellungen
+tags: Lernmedien-Planer
+weight: 50
+
+Wenn Sie neue Inhalte namentlich kennzeichnen möchten, dann tragen Sie hier Ihren Namen ein, ehe Sie diese Inhalte erstellen:
+<$edit-text tiddler="$:/status/UserName" tag="input" default="" placeholder="Ihr Name" class="my-fullwidth"/>
+
+<$checkbox tiddler="$:/Einstellungen/WissenschaftlicherKommentar" listField="text" checked="show" unchecked="hide"> Wissenschaftliche Kommantare und Erklärungen anzeigen</$checkbox>
+
+<<comment "Das ist ein Beispiel für einen wissenschaftlichen Kommentar" >>

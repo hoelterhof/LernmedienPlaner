@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="ledger-play.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4069" />
+  <sodipodi:namedview
+     id="namedview4067"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="12.125"
+     inkscape:cx="35.71134"
+     inkscape:cy="36.041237"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="emoji" />
+  <g
+     id="color">
+    <path
+       fill="#FCEA2B"
+       stroke="none"
+       d="M60.1001,57.0799c0.5632,0,1.0198-0.4576,1.0198-1.0222V12.0344c0-0.5645-0.4566-1.0222-1.0198-1.0222 h-43.922c-0.5632,0-1.0198,0.4576-1.0198,1.0222V39.163l36.0608,17.917H60.1001z"
+       id="path4037" />
+    <path
+       fill="#FCEA2B"
+       stroke="none"
+       d="M60.1214,56.0122c0.5514,0,0.9985-0.447,0.9985-0.9985v-43.003c0-0.5514-0.447-0.9985-0.9985-0.9985 h-43.003c-0.5514,0-0.9985,0.447-0.9985,0.9985v44.0015H60.1214z"
+       id="path4039" />
+    <path
+       fill="#FCEA2B"
+       stroke="none"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       d="M16.1199,12.0107c0-0.5514,0.447-0.9985,0.9985-0.9985h43.003c0.5514,0,0.9985,0.447,0.9985,0.9985v43.003 c0,0.5514-0.447,0.9985-0.9985,0.9985"
+       id="path4041" />
+    <path
+       fill="#F1B31C"
+       stroke="none"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       d="M55.1336,61h-43.003c-0.5514,0-0.9985-0.447-0.9985-0.9985v-5.8828V25.6668v-3.2316v-5.4367c0-0.5514,0.447-0.9985,0.9985-0.9985 h43.003c0.5514,0,0.9985,0.447,0.9985,0.9985v43.003C56.1321,60.553,55.685,61,55.1336,61z"
+       id="path4043" />
+  </g>
+  <g
+     id="hair" />
+  <g
+     id="skin" />
+  <g
+     id="skin-shadow" />
+  <g
+     id="line">
+    <path
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       d="M16.1199,12.0107c0-0.5514,0.447-0.9985,0.9985-0.9985h43.003c0.5514,0,0.9985,0.447,0.9985,0.9985v43.003 c0,0.5514-0.447,0.9985-0.9985,0.9985"
+       id="path4049" />
+    <path
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       d="M55.1336,61h-43.003c-0.5514,0-0.9985-0.447-0.9985-0.9985v-5.8828V25.6668v-3.2316v-5.4367c0-0.5514,0.447-0.9985,0.9985-0.9985 h43.003c0.5514,0,0.9985,0.447,0.9985,0.9985v43.003C56.1321,60.553,55.685,61,55.1336,61z"
+       id="path4051" />
+    <line
+       x1="7"
+       x2="15.7116"
+       y1="23.4114"
+       y2="23.4114"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4053" />
+    <line
+       x1="7"
+       x2="15.7116"
+       y1="29.4469"
+       y2="29.4469"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4055" />
+    <line
+       x1="7"
+       x2="15.7116"
+       y1="35.4823"
+       y2="35.4823"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4057" />
+    <line
+       x1="15.7116"
+       x2="7"
+       y1="41.5177"
+       y2="41.5177"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4059" />
+    <line
+       x1="7"
+       x2="15.7116"
+       y1="47.5532"
+       y2="47.5532"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4061" />
+    <line
+       x1="7"
+       x2="15.7116"
+       y1="53.5886"
+       y2="53.5886"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="2"
+       id="line4063" />
+  </g>
+  <g
+     id="g4153"
+     transform="matrix(0.84825542,0,0,0.85103934,4.7787711,7.7834109)"
+     style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1">
+    <g
+       id="color-7"
+       style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1" />
+    <g
+       id="hair-5"
+       style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1" />
+    <g
+       id="skin-3"
+       style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1" />
+    <g
+       id="skin-shadow-5"
+       style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1" />
+    <g
+       id="line-6"
+       style="stroke-width:1.17696;fill:#b12d28;fill-opacity:1">
+      <path
+         fill="none"
+         stroke="#000000"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         stroke-width="2.35392"
+         d="m 19.5816,55.6062 c 0.4848,0.1782 1.0303,0.297 1.5758,0.297 0.8485,0 1.697,-0.297 2.4242,-0.7722 l 30,-15.9793 0.303,-0.297 c 0.7879,-0.7722 1.2121,-1.7227 1.2121,-2.7919 0,-1.0692 -0.4242,-2.0791 -1.2121,-2.7919 l -0.303,-0.297 -30,-16.0981 c -1.0909,-0.8316 -2.6667,-1.0098 -4,-0.4752 -1.5152,0.594 -2.4848,2.0791 -2.4848,3.683 v 31.8397 c -1e-4,1.6039 0.9696,3.0889 2.4848,3.6829 z"
+         id="path4139"
+         style="fill:#b12d28;fill-opacity:1" />
+    </g>
+  </g>
+</svg>

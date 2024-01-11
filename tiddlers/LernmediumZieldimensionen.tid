@@ -1,0 +1,8 @@
+title: LernmediumZieldimensionen
+
+
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="<p>Bisher wurden keine Ziele eingegeben.</p>">
+<$list filter="[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]" variable="ziel"><ul>
+<li><$link to=<<ziel>>><<ziel>></$link> <$list filter="[title<ziel>tags[]compare:string:ne[Zieldimension]]"><<tag>> </$list>
+</li></ul></$list>
+</$list>

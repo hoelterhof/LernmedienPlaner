@@ -1,0 +1,10 @@
+title: BedienungSpeichern
+caption: Änderungen speichern
+
+Änderungen sind jederzeit in diesem Fenster bzw. Tab Ihres Webbrowser gespeichert. Wenn Sie den Browser schließen gehen die Änderungen verloren, es sei denn sie ''Speichern diese Änderungen'' in einer Datei. Klicken Sie dafür rechts auf das Symbol {{$:/core/ui/Buttons/save-wiki}}. Das Symbol wird rot wenn Änderungen vorgenommen wurden die noch nicht gespeichert sind.
+
+Wenn Sie auf das Speichern-Symbol klicken erzeugt der Lernmedien-Planer eine HTML-Datei und übergibt diese Datei als Download an den Webbrowser. Typischerweise werden Downloads in Ihrem Download-Ordner gespeichert. Wenn Sie den Lernmedien-Planer mehrmals speichern erhalten die Dateinamen ggf. Nummern, weil eine Datei mit dem Namen im Download-Ordner schon vorhanden ist. Sie können Ihren Webbrowser so konfigurieren, dass er bei jedem Download nachfragt wo und unter welchem Namen die Datei gespeichert werden soll.
+
+Die Funktion Speichern erzeugt eine HTML-Datei, die sowohl Ihre Berarbeitungen als auch eine Kopie der genutzten Version des Lernmedienplaners sebst beinhaltet. Diese HTML-Datei kann in jedem Webbrowser geöffnet werden. Neben dem Speichern können Sie alle ''Bearbeitungen auch exportieren'': Ein Export beinhaltet nur Ihre Bearbeitungen und kann in einer anderen Version des Lernmedienplaners wieder importiert werden. Auch können Sie durch einen Export mehrere Lernmedien in einem Lernmedienplaner bearbeiten, indem Sie die Planungen exportieren und importieren. Sie finden sowohl die Export- als auch die Import-Funktion unter „Lernmedienplan verwalten“ im Startfenster bzw. im Inhalt unter „Lernmedien-Planer“
+
+Wenn Sie häufiger mit dem Lernmedien-Planer oder mit einem anderen TiddlyWiki arbeiten können Sie auch ein Plugin zum automatischen Speichern in ihrem Webbrowser installieren. Weitere Informationen zu den Plugins für TiddlyWiki finden Sie unter: [[https://tiddlywiki.com/#Saving|https://tiddlywiki.com/#Saving]]

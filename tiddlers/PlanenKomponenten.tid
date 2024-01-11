@@ -1,0 +1,32 @@
+title: PlanenKomponenten
+caption: Komponenten
+
+!! Neue Komponente erstellen
+
+Bitte wählen Sie einen Komponententyp aus:
+
+
+<$select tiddler='$:/state/CurrentComponent' default='' class="my-fullwidth">
+<$list filter='[tag[Komponententyp]]'><option><$view field='title'/></option></$list></$select>
+<$list filter='[{$:/state/CurrentComponent}minlength[1]]' emptyMessage="<p>Kein Komponententyp ausgewählt.</p>">
+
+<$set name=component value={{$:/state/CurrentComponent}}>
+<div class="tc-description-box"><$list filter="[<component>get[text]splitregexp[\n]first[1]]" variable="item" emptyMessage="Dieser Komponententyp beinhaltet keine Beschreibung."><<item>></$list> <$link to=<<component>>>Weiterlesen...</$link></div>
+
+
+<p>Bitte wählen Sie die Zieldimension der Komponente aus: <br/><$list filter='[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]' variable=skill>
+<$checkbox tiddler="$:/state/CurrentSkill" listField="text" checked=<<skill>>> <<skill>></$checkbox><br/>
+</$list></p>
+
+<$set name=skill value={{$:/state/CurrentSkill}}>
+<p><$button actions=<<NeueKomponente>>>
+[img[Media/Icons/add-button.svg]] Neue {{$:/state/CurrentComponent}}-Komponente anlegen
+</$button></p>
+</$set></$set>
+</$list>
+
+
+!! Zusammensetzung des Lernmediums
+
+
+<$transclude tiddler="LernmediumKomponenten" mode="block"/>

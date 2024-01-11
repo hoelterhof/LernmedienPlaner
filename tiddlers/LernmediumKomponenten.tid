@@ -1,0 +1,9 @@
+title: LernmediumKomponenten
+
+
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]nth[1]]" emptyMessage="<p>Für das geplante Lernmedium wurden keine Komponenten angelegt.</p>">
+<ul><$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" variable="component">
+<li><$link to=<<component>>><<component>></$link> (<$transclude tiddler=<<component>> field="Komponententyp" mode="inline"></$transclude>) <$list filter="[title<component>tags[]compare:string:ne[Komponente]]"><<tag>> </$list>
+</li>
+</$list></ul>
+</$list>

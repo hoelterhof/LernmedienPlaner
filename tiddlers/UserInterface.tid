@@ -1,0 +1,10 @@
+title: UserInterface
+caption: User-Interface
+
+Das User-Interface (UI) einer digitalen Anwendung beschreibt die Oberfläche über die das Programm bedient wird. Im Hinblick auf Autorenwerkzeuge für die Erstellung von Lehr- und Lernmedien können grob folgende Formen des User-Interface unterschieden werden:
+
+* ''Seitenbasiert'': Erstellung und Bearbeitung von z.B. Präsentationen oder Texten anhand von Seiten, Folien o.ä.
+* ''Zeitachsenbasiert'': Schnitt und Bearbeitung von z.B. Video- oder Audiodateien anhand einer Zeitachse
+* ''Ablaufbasiert'': Visuelles Programmieren von z.B. Spielen oder Trainings anhand von Flussdiagrammen
+* ''Formularbasiert'': Erstellen von z.B. Quiz oder Test anhand eines Formulars
+* ''Codebasiert'': Erstellung und Bearbeitung von z.B. Webseiten anhand von Code-Zeilen

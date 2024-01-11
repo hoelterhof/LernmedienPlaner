@@ -1,0 +1,76 @@
+title: $:/Macros
+tags: $:/tags/Macro
+
+
+\define Druckansicht()
+<$action-sendmessage $message="tm-open-window" $param="Druckansicht" windowTitle="Druckansicht" width="400" height="500" windowID="window1"/>
+\end
+
+\define NeueKomponente()
+<$wikify name=Komponente text="""{{$:/state/CurrentComponent}}""">
+<$set name="Frage" tiddler=<<Komponente>> field="Frage">
+<$set name=Ziel value={{$:/state/CurrentSkill}}>
+<$action-createtiddler $basetitle="Komponente" $template="VorlageKomponente">
+<$action-setfield $tiddler=<<createTiddler-title>> tags="Komponente"/>
+<$action-setfield $tiddler=<<createTiddler-title>> Komponententyp=<<Komponente>> />
+<$action-setfield $tiddler=<<createTiddler-title>> Zieldimensionen="$(skill)$" />
+<$action-setfield $tiddler=<<createTiddler-title>> text=<<Frage>> />
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+</$set>
+</$set>
+</$wikify>
+\end
+
+\define ListTools4Components(ttag:"")
+<ul>
+<$list filter="[tag[Komponente]!prefix[Vorlage]!prefix[Draft]]" emptyMessage="" variable=Komponente>
+<$list filter="[<Komponente>get[Komponententyp]]" variable=Typ emptyMessage="">
+<$list filter="[tag[$ttag$]]" variable="Kategorie" emptyMessage="">
+<$list filter="[tag<Kategorie>search:edit<Typ>]" variable=Tool>
+<li><$link to=<<Tool>>><<Tool>></$link> (<<Typ>>)</li>
+</$list>
+</$list>
+</$list>
+</$list>
+</ul>
+\end
+
+\define ListTools()
+!! Tools
+<p>Die folgenden Tools ermöglichen das Erstellen und Einsetzen dieser Komponente:
+<<list-links filter:"[contains:references<currentTiddler>tag[Autorenwerkzeug]] :all[contains:references<currentTiddler>tag[Plattform]]" emptyMessage:"Für diesen Komponententyp sind keine Tools eingetragen">></p>
+\end
+
+\define ListComponents()
+Dieses Autorenwerkzeuge eignet sich für die folgenden Komponententypen:
+<p><$list filter="[title<currentTiddler>get[references]]" emptyMessage="Für dieses Autorenwerkzeug sind noch keine Komponententypen eingetragen" variable="item"><<item>></$list></p>
+\end
+
+\define skill(txt:"" comment:"")
+$txt$
+<$button>
+<$action-createtiddler $basetitle="Ziel" $template="VorlageZiel">
+<$action-setfield $tiddler=<<createTiddler-title>> $value="$txt$ ($comment$)"/>
+<$action-navigate $to=<<createTiddler-title>>/>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+Hinzufügen
+</$button>
+\end
+
+\define teaser(title:"")
+<$set name=tiddler value="$title$">
+<div class="teaser"><p><$link to=<<tiddler>>>$title$</$link></p>
+<p><$list filter="[<tiddler>get[text]splitregexp[<teaser]first[1]]" variable="teaser"><<teaser>></$list> <$link to=<<tiddler>>>Weiterlesen...</$link></p></div>
+</$set>
+\end
+
+\define comment(txt:"")
+<$reveal type="match" state="$:/Einstellungen/WissenschaftlicherKommentar" text="show"><div class="DISPLAY">$txt$</div></$reveal>
+\end
+
+\degine exportLernmedienplan()
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+\end

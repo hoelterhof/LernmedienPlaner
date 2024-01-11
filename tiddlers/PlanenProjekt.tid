@@ -1,0 +1,19 @@
+title: PlanenProjekt
+caption: Projekt
+
+!! Das Lernmedium als Projekt
+
+Titel:<br />
+<$edit-text tiddler="$:/Projekt/Titel" tag="input" default="" placeholder="Titel des Lernmedium-Projekts…" class="my-fullwidth"/>
+
+Currularer Einsatz:<br />
+<$edit-text tiddler="$:/Projekt/Einsatz" tag="input" default="" placeholder="Lernfeld / Unterrichtseinheit / Einsatz des Lernmediums" class="my-fullwidth"/>
+
+Autor*innen:<br />
+<$edit-text tiddler="$:/Projekt/Autor" tag="input" default="" placeholder="Namen der beteiligten Personen" class="my-fullwidth"/>
+
+Datum:<br />
+<$edit-text tiddler="$:/Projekt/Datum" tag="input" default="" placeholder="Datum" class="my-fullwidth"/>
+
+Kommentar zum Projekt:<br />
+<$edit-text tiddler="$:/Projekt/Kommentar" tag="textarea" default="" placeholder="Ggf. organisatorische Kommentare zum Projekt ergänzen…" class="my-fullwidth"/>

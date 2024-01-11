@@ -1,0 +1,24 @@
+title: Exportieren und Importieren
+tags: Lernmedien-Planer
+weight: 3
+
+! Speichern
+
+Die aktuelle Planung kann mitsamt des Lernmedien-Planers als HTML-Datei abgespeichert werden. Diese Datei beinhaltet dann alle Daten und kann in jedem Webbrowser ausgeführt werden. Zum Speichern auf dieses Symbol klicken, welches auch rechts in der Toolbar zu finden ist:
+
+<$transclude tiddler="$:/core/ui/Buttons/save-wiki"></$transclude>
+
+! Exportieren
+
+Es kann immer nur eine Planung im Lernmedien-Planer bearbeitet oder analysiert werden. Um mehrere Planungen zu verwalten, aber auch im die Planung von einem Lernmedienplaner in einen anderen zu überführen, können Planungen exportiert und importiert werden. So kann eine Planung auch in einer neuere Version des Lernmedien-Planers weiter bearbeitet werden.
+
+<$button>
+{{ $:/core/images/export-button }} Planung exportieren
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+</$button>
+
+! Importieren
+
+Über diese Auswahl kann eine exportierte Planung wieder importiert werden:
+
+<$browse />

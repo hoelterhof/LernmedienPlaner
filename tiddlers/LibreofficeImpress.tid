@@ -1,0 +1,13 @@
+title: LibreofficeImpress
+tags: Präsentationseditor OpenSource StandaloneProgramm
+edit: Präsentation Visualisierung
+
+Libreoffice Impress ist ein Editor für Präsentationen und Teil des freien Office-Pakets Libreoffice. Mit Impress werden hauptsächlich Folienpräsentationen erstellt, es können aber auch multimediale Elemente eingebunden werden. Das Tool ist relativ einfach zu bedienen und wird daher auch für Grafiken und Visualisierungen verwendet. Es ist mit [[PowerPoint|PowerPoint]] kompatibel, so dass Präsentationen im PowerPoint-Format gespeichert und geöffnet werden können.
+
+Das Tool ist für Lehrende sehr einfach und ähnlich wie PowerPoint zu bedienen. Der Editor ist nach Folien gegliedert und ermöglicht die Bearbeitung nach dem [[WYSIWYG|WYSIWYG]]-Prinzip. Das Programm ist lizenzfrei, muss aber auf den Arbeitsgeräten der Lehrenden installiert werden. Für die Integration in die Lehr- und Lerninfrastruktur der Schulen ist es wichtig, dass die Präsentationen auf den Geräten geöffnet und angezeigt werden können. Dies kann über die PowerPoint-Applikation erfolgen. Alternativ können Präsentationen auch in andere Formate exportiert werden: Hier bietet sich das PDF-Format an, da es auf vielen Geräten ohne weitere Hilfsmittel geöffnet werden kann. Allerdings unterstützt PDF keine multimedialen Elemente. Die Einbindung in Lernplattformen erfolgt in der Regel als Datei.
+
+Die Lernenden benötigen in der Regel eine Version des Programms auf ihrem Endgerät, um diese Präsentationen betrachten zu können, wenn diese im Impress-Format vorliegt. Da das Programm kostenlos genutzt werden kann, muss es lediglich auf dem Endgerät installiert werden. Für mobile Endgeräte steht keine App zur Verfügung, so dass der Export der Präsentation als PDF oder PowerPoint empfohlen wird.
+
+Links im Internet:
+
+* [[https://de.libreoffice.org/discover/impress/|https://de.libreoffice.org/discover/impress/]]

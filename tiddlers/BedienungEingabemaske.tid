@@ -1,0 +1,11 @@
+title: BedienungEingabemaske
+caption: Neue Inhalte
+
+Im Lernmedien-Planer werden Komponenten und Zieldimensionen von Lernmedien in einer ''besonderen Eingabemaske'' angelegt und bearbeitet (siehe Abbildung). Das erste Textfeld beinhaltet den Titel des neuen Inhalts (in der Abbildung: „Komponente 1“). Ziele und Komponenten werden standardmäßig durchnummeriert, können aber auch gänzlich anders benannt werden. Darunter ist ein Feld mit Tags (Schagworten). Die voreingetragenen Tags haben oft eine wichtige Funktion im Lernmedien-Planer und sollten nicht entfernt werden (in der Abbildung: „Komponente“). Weitere Tags können hinzugefügt werden, haben aber bisher keine Funktion.
+
+Darunter folgt ein Eingabefeld für die ''Beschreibung'' der Komponente bzw. der Zieldimension. Oft ist hier bereits eine Leitfrage eingetragen. Sie können den Fragetext ersetzen durch einen Beschreibungstext oder die Beschreibung darunter einfügen. Dieses Feld ist wichtig und sollte bearbeitet werden. Im folgenden Reiter „Text eingeben“ finden Sie weitere Hinweise für die Eingabe der Beschreibung.
+
+Je nach Inhalt sind ''weitere Felder'' aufgeführt, die bei Bedarf bearbeitet werden können. Die voreingetragenen Werte sind aber ausreichend. Das Erstellen oder Bearbeiten einer Komponente oder die Zieldimension wird mit einem Klick auf das Symbol {{$:/core/ui/Buttons/save}} oben rechts beendet. Das Symbol {{$:/core/ui/Buttons/cancel}} verwirft die Änderungen und {{$:/core/ui/Buttons/delete}} löscht den Inhalt wieder.
+
+[img  width="80%" [Abbildung: Eine neue Komponente anlegen im Lernmedien-Planer|Media/Screenshots/ScreenshotLernmedienPlanerNeueKomponente.png]]
+<br />//Abbildung: Eine neue Komponente anlegen im Lernmedien-Planer//

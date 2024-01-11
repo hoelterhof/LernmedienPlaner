@@ -1,0 +1,6 @@
+title: $__FieldCascade
+tags: $:/tags/FieldEditorFilter
+list-before: $:/config/FieldEditorFilters/default
+
+
+[suffix[Komponententyp]then[$:/config/EditTemplateFields/Templates/Komponententyp]][suffix[Zieldimensionen]then[$:/config/EditTemplateFields/Templates/Zieldimensionen]]

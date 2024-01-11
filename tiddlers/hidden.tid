@@ -1,0 +1,18 @@
+title: hidden
+
+Bildungsziel:<br />
+<$edit-text tiddler="$:/ProjectObjectivesGoal" tag="textarea" default="" placeholder="Welche Bildungsziele verfolgen Sie mit dem Lernmedium?" class="my-fullwidth"/>
+
+<$button>
+<$action-createtiddler $basetitle="Übergeordnete Struktur des Lernmediums" tags="Lernmedium" $template="TemplateStructure" $savetitle="!!newtiddlertitle" />
+Struktur anlegen
+<$action-navigate $to={{!!newtiddlertitle}}/>
+</$button>
+
+<$button>
+<$action-createtiddler $basetitle="Das ist der Titel" tags="Lernmedium" $template="TemplateObjectives" $savetitle="!!newtiddlertitle" />
+Neue Bildungsziele anlegen
+<$action-navigate $to={{!!newtiddlertitle}}/>
+</$button>
+
+<$button><$action-setfield $tiddler="$:/AssistentStep" text="StepStructure"/>← Vorheriger Schritt</$button>

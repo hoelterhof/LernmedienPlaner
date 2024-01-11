@@ -1,0 +1,13 @@
+title: AnalyseStrategie
+caption: Strategie
+
+! Didaktische Strategie
+
+Das Lernmedien fokussiert folgende Gesamtkonzeption: <br />
+{{$:/Projekt/Gesamtstrategie}}
+
+Das Lernmedium übernimmt folgende didaktische Funktionen: <br />
+{{$:/Projekt/Funktion}}
+
+Didaktischer Kommentar: <br />
+{{$:/Projekt/DidaktischerKommentar}}

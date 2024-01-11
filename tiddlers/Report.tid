@@ -1,0 +1,21 @@
+title: Report
+
+
+<$button class="noprint">
+Drucken
+<$action-sendmessage $message="tm-print" />
+</$button>
+
+{{AnalyseProjekt}}
+
+{{AnalyseZiele}}
+
+{{AnalyseStrategie}}
+
+{{AnalyseKomponenten}}
+
+<p>&nbsp;</p>
+<hr>
+
+
+Report erzeugt mit dem Lernmedien-Planer {{$:/Version}}

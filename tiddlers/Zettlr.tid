@@ -1,0 +1,13 @@
+title: Zettlr
+tags: Texteditor OpenSource StandaloneProgramm
+edit: BuchLektion Präsentation Fall
+
+Zettlr ist ein Editor, Textverarbeitungs- und Notizverwaltungssystem, das mit Markdown-Code arbeitet. Es arbeitet nicht nach dem [[WYSIWYG|WYSIWYG]]-Prinzip und ist auf die Erstellung vielfältiger Ausgabeformate wie etwa Präsentationen, Webseiten, Notizen etc. ausgerichtet, die auch im HTML-Format ausgegeben und weiterverwendet werden können.
+
+Die Integration von Zettlr in die Lehr- und Lerninfrastruktur einer Schule erfolgt über den Export der Dokumente in verschiedene Formate. Das Tool selbst muss auf einem Rechner installiert werden. Besonders interessant für den Export sind Online-Formate wie Webseiten oder reveal.js-Präsentationen. Beide Formate basieren auf HTML und können als Lernmodule in Lernplattformen importiert werden. Darüber hinaus kann Zettlr auch für persönliche Notizen im Kontext der Erstellung von Unterrichtskonzepten verwendet werden. Damit schlägt das Tool eine Brücke zwischen der Konzeption von Unterricht und der Erstellung geeigneter Lehr- und Lernmedien. Für die Nutzung ist allerdings eine Einarbeitung erforderlich, da das Programm mit Softwarekonzepten arbeitet, die in der alltäglich verwendeten Software oft wenig verbreitet sind.
+
+Die Lernenden können die Exporte auf allen Endgeräten nutzen, sofern diese HTML-basiert sind. In der Regel sind sie den Lernenden über die Lernplattformen zugänglich.
+
+Links ins Internet:
+
+* [[https://www.zettlr.com|https://www.zettlr.com]]

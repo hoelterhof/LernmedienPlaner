@@ -1,0 +1,8 @@
+title: $:/config/EditTemplateFields/Templates/Zieldimensionen
+
+
+<$list filter='[tag[Zieldimension]!prefix[Vorlage]!prefix[Draft]]' variable=aim>
+<$checkbox tiddler=<<currentTiddler>> listField='Zieldimensionen' checked=<<aim>> unchecked="" class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><<aim>></$checkbox><br/></$list>
+<$list filter='[list[!!Zieldimensionen]!tag[Zieldimension]]' variable=aim>
+<$checkbox tiddler=<<currentTiddler>> listField='Zieldimensionen' checked=<<aim>> unchecked="" class="tc-edit-texteditor tc-edit-fieldeditor" cancelPopups="yes"><<aim>></$checkbox>
+</$list>

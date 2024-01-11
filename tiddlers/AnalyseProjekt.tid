@@ -1,0 +1,12 @@
+title: AnalyseProjekt
+caption: Projekt
+
+<$list filter="[{$:/Projekt/Titel}minlength[1]]" emptyMessage="<h1>Projekt</h1>Kein Projekt angelegt">
+
+<h1>{{$:/Projekt/Titel}}</h1>
+
+<$list filter="[{$:/Projekt/Einsatz}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Einsatz}}</p></$list>
+<$list filter="[{$:/Projekt/Autor}minlength[1]]" emptyMessage="Keine Angaben zu Autor*in"><p>Ein Lernmedium von {{$:/Projekt/Autor}}<$list filter="[{$:/Projekt/Datum}minlength[1]]" emptyMessage="">, {{$:/ProjektDatum}}</$list>.</p></$list>
+
+<$list filter="[{$:/Projekt/Kommentar}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Kommentar}}</p></$list>
+</$list>

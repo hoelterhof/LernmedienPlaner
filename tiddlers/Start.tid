@@ -1,0 +1,21 @@
+title: Start
+
+[img  class="drop" [|Media/Icons/ledger-play.svg]]
+
+
+Willkommen zum {{$:/SiteTitle}}: einem {{$:/SiteSubtitle}}.
+
+<br clear="both"/>
+
+<div id="#" class="DISPLAY">
+<$list filter="[{$:/Projekt/Titel}minlength[1]]" emptyMessage="<h2>Kein Projekt angelegt</h2>">
+
+!! {{$:/Projekt/Titel}}
+
+<$list filter="[{$:/Projekt/Einsatz}minlength[1]]" emptyMessage=""><p>{{$:/Projekt/Einsatz}}</p></$list>
+<$list filter="[{$:/Projekt/Autor}minlength[1]]" emptyMessage="Keine Angaben zu Autor*in"><p>Ein Lernmedium von {{$:/Projekt/Autor}}<$list filter="[{$:/Projekt/Datum}minlength[1]]" emptyMessage="">, {{$:/Projekt/Datum}}</$list>.</p></$list>
+</$list></div>
+
+<<tabs "Lernmedien-Planer Themen" "Lernmedien-Planer" "$:/state/TabStart" "tc-horizontal">>
+
+Lernmedien-Planer {{$:/Version}} · [[CC-BY-SA 4.0|Impressum und Credits]] Tobias Hölterhof

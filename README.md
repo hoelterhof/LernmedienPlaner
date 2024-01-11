@@ -1,4 +1,4 @@
-# LernmedienPlaner
+# Lernmedien-Planer
 
 *This is a tool for teachers to design digital learning environments that are made up of several components resp. medias, like wikis, videos, presentations and instructions etc. It is also a wiki for organising and implementing this design process as well as a database of possible authoring tools and platforms that can be used for this purpose. It is an open educational resource (OER) for teaching and learning in higher education teacher training with a focus on teachers in healthcare and nursing. Currently this tool is available in German language only.*
 
@@ -20,7 +20,7 @@ Das Tools basiert auf [TiddlyWiki](https://github.com/Jermolene/TiddlyWiki5) von
 Build
 =====
 
-Der Lernmedien-Planer kann aus den hier im Repository eingestellten Source-Codes erzeugt werden. Dafür ist [node.js](https://nodejs.org) sowie das node.js-Package [tiddlywiki](https://www.npmjs.com/package/tiddlywiki) erforderlich. Sind diese Voraussetzungen installiert, kann das Tool aus diesem Stammverzeichnis dieses Repositorium mit dem folgenden Befehlen erstellt werden:
+Der Lernmedien-Planer kann aus den hier im Repository eingestellten Source-Codes erzeugt werden. Dafür ist [node.js](https://nodejs.org) sowie das node.js-Package [tiddlywiki](https://www.npmjs.com/package/tiddlywiki) erforderlich. Sind diese Voraussetzungen installiert, kann das Tool aus diesem Stammverzeichnis dieses Repositorium mit dem folgenden Befehl erstellt werden:
 
 ``` {.shell}
 tiddlywiki ./ --build index

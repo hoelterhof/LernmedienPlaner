@@ -1,0 +1,7 @@
+title: $:/core/ui/Buttons/export-plan
+tags: $:/tags/PageControls
+
+
+<$button class=<<tv-config-toolbar-class>>>{{$:/core/images/export-button}}
+<$action-sendmessage $message="tm-download-file" $param="ExportLernmedienplanJSON" filename="Lernmedienplanung.json"/>
+</$button>

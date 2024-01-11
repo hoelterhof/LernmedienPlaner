@@ -1,0 +1,16 @@
+title: BedienungWikiText
+caption: Text eingeben
+
+Die Eingabe des Beschreibungstextes erfolgt als Markup, d.h. für die ''Textformatierung'' wie etwa Aufzählungslisten, Hervorhebungen etc. werden Steuerzeichen oder Codes verwendet. Neben Hervorhebungen können durch Codes auch Links in das Internet oder Links auf eigene Inhalte gesetzt werden. Diese Codes gelten nur für den Beschreibungstext, in anderen Textfeldern haben sie (noch) keine Funktion. Über dem Texteingabefeld finden Sie auch Buttons für Textformatierungen, die die Eingabe erleichtern.
+
+Folgende Textformatierungen können z.B. genutzt werden:
+
+* Für Absätze eine Zeile leer lassen
+* Hervorgehobene Wörtern oder Passagen (fett, kursiv) werden durch zwei Hochkomma (`''`) oder Slash (`//`) eingeschlossen: `''fett geschriebene Wörter''` oder `//kursive Wörter//`
+* Aufzählungen beginnen mit einem Sternchen (`*`) am Zeilenanfang, gefolgt von einem Leerzeichen: `* Aufzählung Punkt 1`
+
+Ein Link wird durch zwei Winkelklammern gekennzeichnet, in denen das Link-Ziel angegeben wird: der Code `[[Plattform]]` erzeugt [[Plattform|Plattform]]. Als Link-Ziel werden dabei Titel von Inhalten verwendet, wie etwa Komponenten oder Zieldimensionen. Wird der Titel verändert so muss auch der Link verändert werden. Ist ein Titel nicht vorhaben, so wird er durch einen Klick auf den Link erzeugt. Links auf externe Webseiten können durch das Angaben der Internetadresse ohne Winkelklammern eingefügt werden.
+
+Weitere Informationen zur Eingabe von Texten und den dabei gültigen Codes finden Sie unter: [[https://tiddlywiki.com/#WikiText|https://tiddlywiki.com/#WikiText]]
+
+Wenn Sie die Bearbeitung des Textes durch einen Klick auf das Symbol {{$:/core/ui/Buttons/save}} beenden, dann wird der Beschreibungstext ohne Steuerzeichen mit der entsprechenden Formatierung angezeigt.
